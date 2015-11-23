@@ -1,13 +1,15 @@
 ﻿using System;
+
+using App.Data;
+using App.Server.Api.Providers;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using App.Server.Api.Providers;
-using App.Server.Api.Models;
 
-namespace App.Server.Api
+namespace App.Server.Api.Config
 {
     public partial class Startup
     {
@@ -18,7 +20,7 @@ namespace App.Server.Api
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(AppDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user

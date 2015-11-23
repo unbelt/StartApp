@@ -59,12 +59,18 @@
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Data.Common\App.Data.Common.csproj">
+      <Project>{69390a1b-ba5a-4977-bd94-3f808c1029f0}</Project>
+      <Name>App.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Data.Models\App.Data.Models.csproj">
       <Project>{b5b3d816-1163-4fbc-bb37-2e438c69c61b}</Project>
       <Name>App.Data.Models</Name>
