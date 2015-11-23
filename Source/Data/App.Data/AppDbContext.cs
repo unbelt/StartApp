@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 
+using App.Data.Common;
 using App.Data.Migrations;
 using App.Data.Models;
 
@@ -10,7 +11,7 @@ namespace App.Data
     public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext()
-            : base("name=AppDb", throwIfV1Schema: false)
+            : base(Constants.ConnectionString, throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppDbContext, Configuration>());
         }
