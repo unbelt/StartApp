@@ -57,6 +57,10 @@
       <HintPath>..\..\packages\Ninject.Extensions.ContextPreservation.3.2.0.0\lib\net45-full\Ninject.Extensions.ContextPreservation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject.Extensions.NamedScope, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ninject.Extensions.NamedScope.3.2.0.0\lib\net45-full\Ninject.Extensions.NamedScope.dll</HintPath>
       <Private>True</Private>
@@ -181,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\IdentityConfig.cs" />
+    <Compile Include="Config\NinjectConfig.cs" />
     <Compile Include="Config\Startup.Auth.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -212,9 +217,21 @@
       <Project>{a58ae882-8992-49ee-afb0-aa88535ef525}</Project>
       <Name>App.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\App.Services.Data\App.Services.Data.csproj">
+      <Project>{25fa875d-06f5-4889-913d-a83e3949c5fa}</Project>
+      <Name>App.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Server.Common\App.Server.Common.csproj">
+      <Project>{4e56a27d-f2f3-4e6c-9e1a-97b0aeea8a11}</Project>
+      <Name>App.Server.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Server.DataTransferModels\App.Server.DataTransferModels.csproj">
       <Project>{bcbbb09f-b45c-4c94-9dbe-0db5d3ac5c1b}</Project>
       <Name>App.Server.DataTransferModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Server.Infrastructure\App.Server.Infrastructure.csproj">
+      <Project>{ebfd57ad-8818-4335-a64e-6bbd5b5f2909}</Project>
+      <Name>App.Server.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
