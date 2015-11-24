@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Data.Models
 {
-    public class Post
+    public class Entity
     {
         [Key]
         public int Id { get; set; }
@@ -16,8 +16,8 @@ namespace App.Data.Models
 
         public string UserId { get; set; }
 
-        public DateTime? CreationDate { get; set; }
-
         public virtual User User { get; set; }
+
+        public DateTime? DateCreated { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
+using App.Data.Common;
+
 namespace App.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
@@ -11,7 +13,7 @@ namespace App.Data.Repository
         {
             if (context == null)
             {
-                throw new ArgumentException("An instance of DbContext is required.", "context");
+                throw new ArgumentException(Constants.DbContextValidationError, "context");
             }
 
             this.Context = context;

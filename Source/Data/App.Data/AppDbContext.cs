@@ -16,7 +16,7 @@ namespace App.Data
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppDbContext, Configuration>());
         }
 
-        public virtual IDbSet<Post> Posts { get; set; }
+        public virtual IDbSet<Entity> Entities { get; set; }
 
         public static AppDbContext Create()
         {

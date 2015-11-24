@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Http;
 
 namespace App.Server.Api.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ApiController
     {
     }
 }
