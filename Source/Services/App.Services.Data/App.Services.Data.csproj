@@ -39,8 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IEntityService.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="EntityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\App.Data.Models\App.Data.Models.csproj">
+      <Project>{b5b3d816-1163-4fbc-bb37-2e438c69c61b}</Project>
+      <Name>App.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\App.Data\App.Data.csproj">
+      <Project>{a58ae882-8992-49ee-afb0-aa88535ef525}</Project>
+      <Name>App.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

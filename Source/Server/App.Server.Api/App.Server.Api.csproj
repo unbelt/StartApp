@@ -184,12 +184,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\AutoMapperConfig.cs" />
     <Compile Include="Config\IdentityConfig.cs" />
     <Compile Include="Config\NinjectConfig.cs" />
     <Compile Include="Config\Startup.Auth.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,6 +222,10 @@
     <ProjectReference Include="..\..\Services\App.Services.Data\App.Services.Data.csproj">
       <Project>{25fa875d-06f5-4889-913d-a83e3949c5fa}</Project>
       <Name>App.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\App.Services.Logic\App.Services.Logic.csproj">
+      <Project>{ca68605f-21a6-4134-968b-c65ba7c8fd5c}</Project>
+      <Name>App.Services.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Server.Common\App.Server.Common.csproj">
       <Project>{4e56a27d-f2f3-4e6c-9e1a-97b0aeea8a11}</Project>
