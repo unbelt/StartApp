@@ -188,3 +188,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 Source/packages/
+Source/Client/App.Client.Web/Scripts/
+Source/Client/App.Client.Web/fonts/
+Source/Client/App.Client.Web/Content/
