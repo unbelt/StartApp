@@ -3,10 +3,19 @@
 <head>
     <base href="/">
     <title>{{ title }} | App</title>
+
+    <!-- inject:css -->
+    <!-- endinject -->
+
 </head>
 <body data-ng-controller="MainCtrl as vm" data-ng-cloak>
 
     <div class="row" data-ng-view></div>
+
+    <!-- inject:vendors:js -->
+    <!-- endinject -->
+    <!-- inject:js -->
+    <!-- endinject -->
 
 </body>
 </html>

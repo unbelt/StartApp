@@ -68,6 +68,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\common\mainCtrl.js" />
+    <Content Include="app\common\not-found.html" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeCtrl.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -77,7 +78,8 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="index.html" />
+    <Content Include="gulpfile.js" />
+    <Content Include="index-template.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
