@@ -21,8 +21,8 @@ namespace App.Server.Api.Config
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { controller = "Entity", action = "GetAll", id = RouteParameter.Optional }
             );
 
             // JSON Formatters

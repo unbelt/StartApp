@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Reflection;
+using System.Web;
 
 using App.Data;
 using App.Data.Repository;
 using App.Server.Common;
 using App.Server.Infrastructure.Auth;
 using App.Services.Data.Contracts;
+using App.Services.Logic;
 
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -22,7 +23,10 @@ namespace App.Server.Api.Config
 
             try
             {
-                kernel.Load(Assembly.GetExecutingAssembly());
+                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+                ObjectFactory.Initialize(kernel);
                 RegisterServices(kernel);
 
                 return kernel;

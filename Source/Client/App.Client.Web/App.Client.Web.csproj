@@ -67,8 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\common\baseData.js" />
     <Content Include="app\common\mainCtrl.js" />
     <Content Include="app\common\not-found.html" />
+    <Content Include="app\entity\entity-details.html" />
+    <Content Include="app\entity\entity.html" />
+    <Content Include="app\entity\entityCtrl.js" />
+    <Content Include="app\entity\entityData.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeCtrl.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -910,7 +915,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>38639</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:38639/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

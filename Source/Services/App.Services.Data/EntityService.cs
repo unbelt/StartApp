@@ -8,16 +8,21 @@ namespace App.Services.Data
 {
     public class EntityService : IEntityService
     {
-        private readonly IRepository<Entity> posts;
+        private readonly IRepository<Entity> entities;
 
-        public EntityService(IRepository<Entity> posts)
+        public EntityService(IRepository<Entity> entities)
         {
-            this.posts = posts;
+            this.entities = entities;
+        }
+
+        public IQueryable<Entity> GetAllEntities()
+        {
+            return this.entities.GetAll();
         }
 
         public IQueryable<Entity> GetEntityById(int id)
         {
-            return this.posts.GetAll()
+            return this.entities.GetAll()
                 .Where(e => e.Id == id);
         }
     }

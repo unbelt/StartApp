@@ -7,6 +7,7 @@ using App.Services.Logic.Mapping;
 using App.Server.DataTransferModels.Entity;
 
 using AutoMapper.QueryableExtensions;
+using System.Linq;
 
 namespace App.Server.Api.Controllers
 {
@@ -23,12 +24,33 @@ namespace App.Server.Api.Controllers
         }
 
         [HttpGet]
+        public async Task<IHttpActionResult> GetAll()
+        {
+            var entities = await this.entityService
+                .GetAllEntities()
+                .ProjectTo<EntityResponseModel>()
+                .ToListAsync();
+
+            if (!entities.Any())
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(entities);
+        }
+
+        [HttpGet]
         public async Task<IHttpActionResult> Get(int id)
         {
             var model = await this.entityService
                 .GetEntityById(id)
-                .Project().To<EntityResponseModel>()
-                .FirstAsync();
+                .ProjectTo<EntityResponseModel>()
+                .FirstOrDefaultAsync();
+
+            if (model == null)
+            {
+                return this.NotFound();
+            }
 
             return this.Ok(model);
         }

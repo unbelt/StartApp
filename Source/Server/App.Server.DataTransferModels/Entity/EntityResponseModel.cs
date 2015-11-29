@@ -21,7 +21,7 @@ namespace App.Server.DataTransferModels.Entity
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Data.Models.Entity, EntityResponseModel>()
-                .ForMember(u => u.User, opt => opt.MapFrom(u => u.User));
+                .ForMember(u => u.User, opt => opt.MapFrom(u => u.User.UserName)); // TODO: Get the username
         }
     }
 }

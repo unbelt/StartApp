@@ -11,13 +11,13 @@ using Owin;
 
 namespace App.Server.Api.Config
 {
-    public partial class Startup
+    public static partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
-        public void ConfigureAuth(IAppBuilder app)
+        public static void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(AppDbContext.Create);
