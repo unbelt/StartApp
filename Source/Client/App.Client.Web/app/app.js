@@ -6,6 +6,7 @@
         .run(['$rootScope', '$location', run])
         .value('jQuery', jQuery)
         .constant('appSettings', {
+            serverPath: 'http://localhost:3000/api/',
             appName: 'StartApp',
         });
 
@@ -24,8 +25,20 @@
             .when('/', {
                 templateUrl: '/app/home/home.html',
                 controller: 'HomeCtrl',
-                contorllerAs: CONTROLLER_VIEW_MODEL,
+                controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Home'
+            })
+            .when('/entity/getall', {
+                templateUrl: '/app/entity/entities.html',
+                controller: 'EntityCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'All Entity'
+            })
+            .when('/entity/get/:id', {
+                templateUrl: '/app/entity/entity.html',
+                controller: 'EntityCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'Entity'
             })
             .otherwise({
                 redirectTo: '404-not-found',

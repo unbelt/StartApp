@@ -7,6 +7,6 @@
     function mainCtrl() {
         var vm = this;
 
-        // TODO: Imaplement
+        // TODO: Implement
     }
 }());

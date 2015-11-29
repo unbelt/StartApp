@@ -2,12 +2,12 @@
     'use strict';
 
     angular.module('app.controllers')
-        .controller('HomeCtrl', ['$scope', homeCtrl]);
+        .controller('HomeCtrl', [homeCtrl]);
 
-    function homeCtrl($scope) {
+    function homeCtrl() {
         var vm = this;
 
-        $scope.title = 'Home';
+        vm.title = 'Home';
 
         // TODO: Implement
     }

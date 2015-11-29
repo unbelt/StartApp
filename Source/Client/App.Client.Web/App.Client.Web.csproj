@@ -70,6 +70,7 @@
     <Content Include="app\common\baseData.js" />
     <Content Include="app\common\mainCtrl.js" />
     <Content Include="app\common\not-found.html" />
+    <Content Include="app\entity\entities.html" />
     <Content Include="app\entity\entity-details.html" />
     <Content Include="app\entity\entity.html" />
     <Content Include="app\entity\entityCtrl.js" />
