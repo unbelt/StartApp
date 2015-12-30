@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app.controllers')
-        .controller('HomeCtrl', [homeCtrl]);
+        .controller('HomeCtrl', [HomeCtrl]);
 
-    function homeCtrl() {
+    function HomeCtrl() {
         var vm = this;
 
         vm.title = 'Home';

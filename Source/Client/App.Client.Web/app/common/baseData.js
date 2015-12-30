@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app.data')
-        .factory('data', ['$http', '$q', 'appSettings', baseData])
+        .factory('data', ['$http', '$q', 'appSettings', baseData]);
 
     function baseData($http, $q, appSettings) {
 
@@ -11,14 +11,10 @@
             post: post
         };
 
-        var headers = {
-            'Content-Type': 'application/json'
-        };
-
-        function get(url) {
+        function get(path) {
             var deferred = $q.defer();
 
-            var url = appSettings.serverPath + url;
+            var url = appSettings.serverPath + path;
 
             $http.get(url)
                 .success(function onSuccess(data) {
@@ -31,10 +27,14 @@
             return deferred.promise;
         }
 
-        function post(url, data) {
+        function post(path, data) {
             var deferred = $q.defer();
 
-            var url = appSettings.serverPath + url;
+            var url = appSettings.serverPath + path;
+
+            var headers = {
+                'Content-Type': 'application/json'
+            };
 
             $http.post(url, data, headers)
                 .success(function onSuccess(data) {

@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app.controllers')
-        .controller('EntityCtrl', ['$routeParams', 'entityData', entityCtrl]);
+        .controller('EntityCtrl', ['$routeParams', 'entityData', EntityCtrl]);
 
-    function entityCtrl($routeParams, entityData) {
+    function EntityCtrl($routeParams, entityData) {
         var vm = this;
 
         if ($routeParams.id) {

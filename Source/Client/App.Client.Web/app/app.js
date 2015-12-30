@@ -6,7 +6,7 @@
         .run(['$rootScope', '$location', run])
         .value('jQuery', jQuery)
         .constant('appSettings', {
-            serverPath: 'http://localhost:3000/api/',
+            serverPath: 'https://dev.app.com/api/',
             appName: 'StartApp',
         });
 
@@ -49,7 +49,9 @@
 
     function run($rootScope, $location) {
         $rootScope.$on('$routeChangeSuccess', function routeChangeSuccess(event, current, previous) {
-            // TODO: Run on route success
+            if (current.hasOwnProperty('$$route')) {
+                $rootScope.title = current.$$route.title;
+            }
         });
 
         $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, current, previous) {

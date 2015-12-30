@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app.controllers')
-        .controller('MainCtrl', [mainCtrl]);
+        .controller('MainCtrl', [MainCtrl]);
 
-    function mainCtrl() {
+    function MainCtrl() {
         var vm = this;
 
         // TODO: Implement
