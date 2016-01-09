@@ -18,6 +18,6 @@ namespace App.Data.Models
 
         public virtual User User { get; set; }
 
-        public DateTime? DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

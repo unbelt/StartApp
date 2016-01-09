@@ -16,12 +16,12 @@ namespace App.Server.DataTransferModels.Entity
 
         public string User { get; set; }
 
-        public DateTime? CreationDate { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Data.Models.Entity, EntityResponseModel>()
-                .ForMember(u => u.User, opt => opt.MapFrom(u => u.User.UserName)); // TODO: Get the username
+                .ForMember(u => u.User, opt => opt.MapFrom(u => u.User.UserName));
         }
     }
 }

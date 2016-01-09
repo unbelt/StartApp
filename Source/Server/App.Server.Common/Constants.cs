@@ -7,5 +7,7 @@
 
         public const string DataServicesAssembly = "App.Services.Data";
         public const string LogicServicesAssembly = "App.Services.Logic";
+
+        public const string LocalLoginProvider = "Local";
     }
 }

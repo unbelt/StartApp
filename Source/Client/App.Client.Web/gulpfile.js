@@ -19,17 +19,17 @@ var argv = require('yargs').argv,
 // File paths
 var config = {
     vendorJsSrc: [
-        'scripts/jquery-2.1.4.min.js',
-        'scripts/toastr.min.js',
+        'scripts/jquery-2.1.4.js',
+        'scripts/toastr.js',
         'scripts/scripts.js',
-        'scripts/angular.min.js',
-        'scripts/angular-route.min.js',
-        'scripts/angular-cookies.min.js',
-        'scripts/angular-animate.min.js'
+        'scripts/angular.js',
+        'scripts/angular-route.js',
+        'scripts/angular-cookies.js',
+        'scripts/angular-animate.js'
     ],
     vendorCssSrc: [
-        'content/bootstrap.min.css',
-        'content/toastr.min.css'
+        'content/bootstrap.css',
+        'content/toastr.css'
     ],
     appJsSrc: ['app/**/*.js', '!app/build/*'],
     appCssSrc: ['content/styles.css'],
@@ -109,7 +109,7 @@ gulp.task('html', ['css', 'scripts'], function () {
     return target
         .pipe(inject(vendorSources, { starttag: '<!-- inject:vendors:{{ext}} -->' }))
         .pipe(inject(appSources))
-		.pipe(minifyHTML({ conditionals: true }))
+		.pipe(gulpIf(isProduction, minifyHTML({ conditionals: true })))
 		.pipe(rename('index.html'))
 		.pipe(gulp.dest('./'));
 });
@@ -122,5 +122,5 @@ gulp.task('watch', ['lint', 'css', 'vendors', 'scripts', 'html'], function () {
     gulp.watch(config.appIndexHtml, ['html']);
 });
 
-// Set  default tasks
+// Set default tasks
 gulp.task('default', ['lint', 'css', 'vendors', 'scripts', 'html'], function () { });

@@ -1,10 +1,9 @@
-﻿using App.Data.Models;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+using App.Data.Models;
 using App.Data.Repository;
 using App.Services.Data.Contracts;
-
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace App.Services.Data
 {
@@ -30,24 +29,11 @@ namespace App.Services.Data
 
         public async Task<Entity> AddEntity(Entity entity)
         {
-            if (entity.DateCreated == null)
-            {
-                entity.DateCreated = DateTime.Now;
-            }
-
-            var newEntity = new Entity
-            {
-                Title = entity.Title,
-                Content = entity.Content,
-                UserId = entity.UserId,
-                DateCreated = entity.DateCreated
-            };
-
-            this.entities.Add(newEntity);
+            this.entities.Add(entity);
 
             await this.entities.SaveChangesAsync();
 
-            return newEntity;
+            return entity;
         }
 
         public async Task<Entity> EditEntity(Entity entity)

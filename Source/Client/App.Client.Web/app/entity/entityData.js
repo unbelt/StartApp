@@ -2,14 +2,18 @@
     'use strict';
 
     angular.module('app.data')
-        .factory('entityData', ['data', entityData]);
+        .factory('entityData', entityData);
+
+    entityData.$inject = ['data'];
 
     function entityData(data) {
 
-        return {
+        var service = {
             getEntity: getEntity,
             getAllEntities: getAllEntities
-        };
+        }
+
+        return service;
 
         function getEntity(id) {
             return data.get('entity/get/' + id);

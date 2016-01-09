@@ -1,15 +1,22 @@
-﻿(function () {
+﻿/********************
+ * Base Data Service
+ ********************/
+(function () {
     'use strict';
 
     angular.module('app.data')
-        .factory('data', ['$http', '$q', 'appSettings', baseData]);
+        .factory('data', baseData);
+
+    baseData.$inject = ['$http', '$q', 'appSettings'];
 
     function baseData($http, $q, appSettings) {
 
-        return {
+        var service = {
             get: get,
             post: post
         };
+
+        return service;
 
         function get(path) {
             var deferred = $q.defer();

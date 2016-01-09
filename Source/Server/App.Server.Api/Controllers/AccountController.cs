@@ -1,38 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 
 using App.Data.Models;
 using App.Server.Api.Config;
+using App.Server.DataTransferModels.User;
+using App.Services.Data.Contracts;
+using App.Services.Logic.Mapping;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
-using App.Server.DataTransferModels.User;
+
+using AutoMapper.QueryableExtensions;
 
 namespace App.Server.Api.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Account")]
     public class AccountController : BaseController
     {
-        private const string LocalLoginProvider = "Local";
+        private readonly IMappingService mappingService;
+        private readonly IUserService userService;
+
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        public AccountController(IMappingService mappingService, IUserService userService)
         {
+            this.mappingService = mappingService;
+            this.userService = userService;
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
+        //public AccountController(IMappingService mappingService,
+        //    IUserService userService,
+        //    ApplicationUserManager userManager,
+        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        //{
+        //    this.mappingService = mappingService;
+        //    this.userService = userService;
+
+        //    this.UserManager = userManager;
+        //    this.AccessTokenFormat = accessTokenFormat;
+        //}
 
         public ApplicationUserManager UserManager
         {
@@ -48,15 +62,72 @@ namespace App.Server.Api.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult GetAll()
         {
-            return new UserInfoViewModel
+            var users = this.userService
+               .GetAllUsers()
+               .ProjectTo<UserResponseModel>()
+               .ToList();
+
+            if (!users.Any())
             {
-                Email = User.Identity.GetUserName()
-            };
+                return this.NotFound();
+            }
+
+            return this.Ok(users);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            var user = this.userService.GetUser(id);
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+
+            if (responseModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(responseModel);
+        }
+
+        // POST api/user/login
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("login")]
+        public async Task<IHttpActionResult> Login(LoginBindingModel model)
+        {
+            if (model == null)
+            {
+                return this.BadRequest();
+            }
+
+            return this.Ok();
+        }
+
+        // POST api/Account/Register
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new User() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
         }
 
         // POST api/Account/Logout
@@ -78,7 +149,7 @@ namespace App.Server.Api.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -97,28 +168,6 @@ namespace App.Server.Api.Controllers
             }
 
             IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-        // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = new User() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {

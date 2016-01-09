@@ -7,6 +7,8 @@ namespace App.Server.DataTransferModels.Entity
 {
     public class EntityRequestModel : IMapFrom<Data.Models.Entity>
     {
+        public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
 
