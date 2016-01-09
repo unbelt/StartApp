@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -17,11 +18,13 @@ namespace App.Server.Api.Controllers
     {
         private readonly IMappingService mappingService;
         private readonly IEntityService entityService;
+        private readonly IUserService userService;
 
-        public EntityController(IMappingService mappingService, IEntityService entityService)
+        public EntityController(IMappingService mappingService, IEntityService entityService, IUserService userService)
         {
             this.mappingService = mappingService;
             this.entityService = entityService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -59,6 +62,13 @@ namespace App.Server.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Post(EntityRequestModel requestModel)
         {
+            requestModel.UserId = this.userService.GetUser("admin").Id;
+
+            if (requestModel.DateCreated == null)
+            {
+                requestModel.DateCreated = DateTime.Now.ToLocalTime();
+            }
+
             var entity = this.mappingService.Map<Entity>(requestModel);
             var addedEntity = await this.entityService.AddEntity(entity);
             var responseModel = this.mappingService.Map<EntityResponseModel>(addedEntity);
@@ -70,8 +80,15 @@ namespace App.Server.Api.Controllers
         public async Task<IHttpActionResult> Edit(EntityRequestModel requestModel)
         {
             var entity = this.mappingService.Map<Entity>(requestModel);
+
             var editedEntity = await this.entityService.EditEntity(entity);
-            var responseModel = this.mappingService.Map<EntityRequestModel>(editedEntity);
+
+            if (editedEntity == null)
+            {
+                return this.NotFound();
+            }
+
+            var responseModel = this.mappingService.Map<EntityResponseModel>(editedEntity);
 
             return this.Ok(responseModel);
         }

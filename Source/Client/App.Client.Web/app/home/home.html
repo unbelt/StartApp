@@ -1,3 +1,10 @@
-﻿<duv class="col-md-8">
+﻿<div class="col-md-8">
     <h1>{{ vm.title }}</h1>
-</duv>
+
+    <div data-ng-repeat="entity in vm.entities">
+        <h3>{{ entity.title }}</h3>
+        <p>{{ entity.content }}</p>
+        <em>{{ entity.dateCreated | date:'medium' }}</em> from <b>{{ entity.user }}</b>
+        <hr />
+    </div>
+</div>
