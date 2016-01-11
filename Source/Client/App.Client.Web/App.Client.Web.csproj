@@ -67,11 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\common\directives\navDirective.js" />
+    <Content Include="app\common\directives\appFooter.js" />
+    <Content Include="app\common\directives\appNav.js" />
     <Content Include="app\common\services\baseData.js" />
     <Content Include="app\common\services\logger.js" />
     <Content Include="app\common\services\mainCtrl.js" />
-    <Content Include="app\common\views\navigation-directive.html" />
+    <Content Include="app\common\views\app-footer.html" />
+    <Content Include="app\common\views\app-nav.html" />
     <Content Include="app\common\views\not-found.html" />
     <Content Include="app\entity\add-entity.js" />
     <Content Include="app\entity\entities.html" />
@@ -87,6 +89,7 @@
     <Content Include="content\bootstrap-theme.min.css" />
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
+    <Content Include="content\styles.css" />
     <Content Include="content\toastr.css" />
     <Content Include="content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

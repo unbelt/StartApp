@@ -20,6 +20,7 @@ var argv = require('yargs').argv,
 var config = {
     vendorJsSrc: [
         'scripts/jquery-2.1.4.js',
+        'scripts/bootstrap.js',
         'scripts/toastr.js',
         'scripts/scripts.js',
         'scripts/angular.js',
@@ -29,6 +30,7 @@ var config = {
     ],
     vendorCssSrc: [
         'content/bootstrap.css',
+        'content/bootstrap-theme.css',
         'content/toastr.css'
     ],
     appJsSrc: ['app/**/*.js', '!app/build/*'],

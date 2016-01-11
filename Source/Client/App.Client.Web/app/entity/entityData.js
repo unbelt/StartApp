@@ -11,7 +11,7 @@
         var service = {
             getEntity: getEntity,
             getAllEntities: getAllEntities
-        }
+        };
 
         return service;
 
