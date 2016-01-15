@@ -10,7 +10,10 @@
 
         var service = {
             getEntity: getEntity,
-            getAllEntities: getAllEntities
+            getAllEntities: getAllEntities,
+            addEntity: addEntity,
+            updateEntity: updateEntity,
+            deleteEntity: deleteEntity
         };
 
         return service;
@@ -21,6 +24,18 @@
 
         function getAllEntities() {
             return data.get('entity/getall');
+        }
+
+        function addEntity(entity) {
+            return data.post('entity/post', entity);
+        }
+
+        function updateEntity(entity) {
+            // TOOD: Implement
+        }
+
+        function deleteEntity(id) {
+            // TODO: Implement
         }
     }
 

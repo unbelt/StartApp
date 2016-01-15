@@ -75,14 +75,13 @@
     <Content Include="app\common\views\app-footer.html" />
     <Content Include="app\common\views\app-nav.html" />
     <Content Include="app\common\views\not-found.html" />
-    <Content Include="app\entity\add-entity.js" />
-    <Content Include="app\entity\entities.html" />
     <Content Include="app\entity\add-entity.html" />
-    <Content Include="app\entity\details-entity.html" />
-    <Content Include="app\entity\update-entity.html" />
+    <Content Include="app\entity\entities.html" />
+    <Content Include="app\entity\entity-details.html" />
     <Content Include="app\entity\entity.html" />
     <Content Include="app\entity\entityCtrl.js" />
     <Content Include="app\entity\entityData.js" />
+    <Content Include="app\entity\update-entity.html" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeCtrl.js" />
     <Content Include="content\bootstrap-theme.css" />
@@ -877,9 +876,9 @@
     <Content Include="content\toastr.scss" />
     <Content Include="content\toastr.less" />
     <Content Include="package.json" />
-    <None Include="scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="scripts\jquery-2.1.4.js" />
-    <Content Include="scripts\jquery-2.1.4.min.js" />
+    <None Include="scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="scripts\jquery-2.2.0.js" />
+    <Content Include="scripts\jquery-2.2.0.min.js" />
     <Content Include="scripts\toastr.js" />
     <Content Include="scripts\toastr.min.js" />
     <Content Include="scripts\version.json" />
@@ -896,7 +895,7 @@
     <Content Include="scripts\angular-aria.min.js.map" />
     <Content Include="scripts\angular-animate.min.js.map" />
     <Content Include="packages.config" />
-    <Content Include="scripts\jquery-2.1.4.min.map" />
+    <Content Include="scripts\jquery-2.2.0.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

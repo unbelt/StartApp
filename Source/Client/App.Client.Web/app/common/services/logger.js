@@ -7,9 +7,9 @@
     angular.module('app.services')
         .factory('logger', logger);
 
-    logger.$inject = ['$log', toastr];
+    logger.$inject = ['$log', 'toastr'];
 
-    function logger() {
+    function logger($log, toastr) {
 
         var service = {
             success: success,

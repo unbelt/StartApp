@@ -19,7 +19,7 @@ var argv = require('yargs').argv,
 // File paths
 var config = {
     vendorJsSrc: [
-        'scripts/jquery-2.1.4.js',
+        'scripts/jquery-2.2.0.js',
         'scripts/bootstrap.js',
         'scripts/toastr.js',
         'scripts/scripts.js',

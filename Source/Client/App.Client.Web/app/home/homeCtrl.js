@@ -7,9 +7,9 @@
     angular.module('app.controllers')
         .controller('HomeCtrl', HomeCtrl);
 
-    HomeCtrl.$inject = ['entityData'];
+    HomeCtrl.$inject = ['entityData', 'logger'];
 
-    function HomeCtrl(entityData) {
+    function HomeCtrl(entityData, logger) {
         var vm = this;
 
         vm.title = 'Entity Home';

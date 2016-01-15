@@ -7,18 +7,59 @@
     angular.module('app.controllers')
         .controller('EntityCtrl', EntityCtrl);
 
-    EntityCtrl.$inject = ['$routeParams', 'entityData', 'logger'];
+    EntityCtrl.$inject = ['$routeParams', '$location', 'entityData', 'logger'];
 
-    function EntityCtrl($routeParams, entityData) {
+    function EntityCtrl($routeParams, $location, entityData, logger) {
         var vm = this;
 
-        if ($routeParams.id) {
+        vm.addEntity = addEntity;
+        vm.updateEntity = updateEntity;
+        vm.deleteEntity = deleteEntity;
+
+
+        if (Number($routeParams.id)) {
             entityData.getEntity($routeParams.id)
-                .then(function (response) {
-                    vm.entity = response;
-                }, function (error) {
-                    console.log(error);
-                });
+                .then(onGetSuccess, onFail);
+        }
+
+        function addEntity(entity) {
+            entityData.addEntity(entity)
+                .then(onAddSuccess, onFail);
+        }
+
+        function updateEntity(entity) {
+            // TODO: Implement
+        }
+
+        function deleteEntity() {
+            // TODO: Implement
+        }
+
+
+        // PRIVATE METHODS
+
+        // GET
+        function onGetSuccess(response) {
+            vm.entity = response;
+        }
+
+        // ADD
+        function onAddSuccess(response) {
+            $location.path('/');
+        }
+
+        // UPDATE
+        function onUpdateSuccess(response) {
+            $location.path('/');
+        }
+
+        // DELETE
+        function onDeleteSuccess(response) {
+            $location.path('/');
+        }
+
+        function onFail(error) {
+            logger.error(error);
         }
     }
 

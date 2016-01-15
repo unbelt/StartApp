@@ -17,7 +17,7 @@
     angular.module('templates', []);
     angular.module('app.data', []);
     angular.module('app.services', []);
-    angular.module('app.controllers', ['app.data']);
+    angular.module('app.controllers', ['app.data', 'app.services']);
     angular.module('app.directives', []);
 
     function config($locationProvider, $routeProvider) {
@@ -38,7 +38,7 @@
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'All Entities'
             })
-            .when('/entity/:id', {
+            .when('/entity/get/:id', {
                 templateUrl: '/app/entity/entity.html',
                 controller: 'EntityCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
