@@ -77,7 +77,7 @@
 
     function settings() {
         return {
-            serverPath: 'https://dev.app.com/api/',
+            serverPath: 'http://localhost:3000/api/',
             appName: 'StartApp',
         };
     }
