@@ -48,12 +48,11 @@
     <Content Include="app\common\directives\appNav.js" />
     <Content Include="app\common\services\baseData.js" />
     <Content Include="app\common\services\logger.js" />
-    <Content Include="app\common\services\mainCtrl.js" />
+    <Content Include="app\common\services\utils.js" />
     <Content Include="app\common\views\app-footer.html" />
     <Content Include="app\common\views\app-nav.html" />
     <Content Include="app\common\views\not-found.html" />
     <Content Include="app\entity\add-entity.html" />
-    <Content Include="app\entity\entities.html" />
     <Content Include="app\entity\entity-details.html" />
     <Content Include="app\entity\entity.html" />
     <Content Include="app\entity\entityCtrl.js" />

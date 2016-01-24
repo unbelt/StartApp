@@ -53,7 +53,7 @@ namespace App.Server.Api.Controllers
 
             if (model == null)
             {
-                return this.NotFound();
+                return this.BadRequest("Not found!");
             }
 
             return this.Ok(model);

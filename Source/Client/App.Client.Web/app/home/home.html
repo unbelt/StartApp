@@ -1,10 +1,12 @@
 ﻿<div class="col-md-8">
     <h1>{{ vm.title }}</h1>
 
-    <div data-ng-repeat="entity in vm.entities">
-        <h3>{{ entity.title }}</h3>
+    <div data-ng-repeat="entity in vm.entities | orderBy: '-dateCreated'">
+        <h3><a data-ng-click="vm.getEntity(entity.id)" href="entity/get/{{ entity.id }}">{{ entity.title }}</a></h3>
         <p>{{ entity.content }}</p>
         <em>{{ entity.dateCreated | date:'medium' }}</em> from <b>{{ entity.user }}</b>
+        <input type="submit" value="Edit" class="btn btn-warning" data-ng-click="vm.editEntity(entity.id)" />
+        <input type="submit" value="Delete" class="btn btn-danger" data-ng-click="vm.deleteEntity(entity.id)" />
         <hr />
     </div>
 </div>

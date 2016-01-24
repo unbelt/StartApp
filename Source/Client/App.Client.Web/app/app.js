@@ -32,12 +32,6 @@
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Home'
             })
-            .when('/entity/all', {
-                templateUrl: '/app/entity/entities.html',
-                controller: 'EntityCtrl',
-                controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'All Entities'
-            })
             .when('/entity/get/:id', {
                 templateUrl: '/app/entity/entity.html',
                 controller: 'EntityCtrl',
@@ -77,8 +71,8 @@
 
     function settings() {
         return {
-            serverPath: 'http://localhost:3000/api/',
-            appName: 'StartApp',
+            serverPath: 'https://dev.app.com/api/', // http://localhost:3000/api/
+            appName: 'StartApp'
         };
     }
 

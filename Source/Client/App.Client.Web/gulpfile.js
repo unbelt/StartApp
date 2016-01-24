@@ -19,14 +19,14 @@ var argv = require('yargs').argv,
 // File paths
 var config = {
     vendorJsSrc: [
-        'scripts/jquery-2.2.0.js',
-        'scripts/bootstrap.js',
-        'scripts/toastr.js',
-        'scripts/scripts.js',
-        'scripts/angular.js',
-        'scripts/angular-route.js',
-        'scripts/angular-cookies.js',
-        'scripts/angular-animate.js'
+        'Scripts/jquery-2.2.0.js',
+        'Scripts/bootstrap.js',
+        'Scripts/toastr.js',
+        'Scripts/scripts.js',
+        'Scripts/angular.js',
+        'Scripts/angular-route.js',
+        'Scripts/angular-cookies.js',
+        'Scripts/angular-animate.js'
     ],
     vendorCssSrc: [
         'content/bootstrap.css',

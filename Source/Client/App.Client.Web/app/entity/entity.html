@@ -1,3 +1,8 @@
 ﻿<div class="col-md-8">
-    <p>{{ vm.entity }}</p>
+    <h1>{{ vm.title }}</h1>
+
+    <h3>{{ vm.entity.title }}</h3>
+    <p>{{ vm.entity.content }}</p>
+    <em>{{ vm.entity.dateCreated | date:'medium' }}</em> from <b>{{ vm.entity.user }}</b>
+    <hr />
 </div>

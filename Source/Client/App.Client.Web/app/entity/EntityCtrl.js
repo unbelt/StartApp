@@ -7,18 +7,23 @@
     angular.module('app.controllers')
         .controller('EntityCtrl', EntityCtrl);
 
-    EntityCtrl.$inject = ['$routeParams', '$location', 'entityData', 'logger'];
+    EntityCtrl.$inject = ['$routeParams', '$location', 'entityData', 'utils', 'logger'];
 
-    function EntityCtrl($routeParams, $location, entityData, logger) {
+    function EntityCtrl($routeParams, $location, entityData, utils, logger) {
         var vm = this;
 
+        vm.getEntity = getEntity;
         vm.addEntity = addEntity;
         vm.updateEntity = updateEntity;
         vm.deleteEntity = deleteEntity;
 
-
         if (Number($routeParams.id)) {
             entityData.getEntity($routeParams.id)
+                .then(onGetSuccess, onFail);
+        }
+
+        function getEntity(id) {
+            entityData.getEntity(id)
                 .then(onGetSuccess, onFail);
         }
 
@@ -31,8 +36,9 @@
             // TODO: Implement
         }
 
-        function deleteEntity() {
-            // TODO: Implement
+        function deleteEntity(id) {
+            entityData.deleteEntity(id)
+                .then(onDeleteSuccess, onFail);
         }
 
 
@@ -54,12 +60,13 @@
         }
 
         // DELETE
-        function onDeleteSuccess(response) {
+        function onDeleteSuccess() {
             $location.path('/');
         }
 
         function onFail(error) {
-            logger.error(error);
+            logger.error(error.message);
+            $location.path('/404-not-found');
         }
     }
 

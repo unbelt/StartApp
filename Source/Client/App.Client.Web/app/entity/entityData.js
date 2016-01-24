@@ -35,7 +35,7 @@
         }
 
         function deleteEntity(id) {
-            // TODO: Implement
+            return data.post('entity/delete', id);
         }
     }
 
