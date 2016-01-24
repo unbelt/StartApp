@@ -53,11 +53,12 @@
     <Content Include="app\common\views\app-nav.html" />
     <Content Include="app\common\views\not-found.html" />
     <Content Include="app\entity\add-entity.html" />
-    <Content Include="app\entity\entity-details.html" />
+    <Content Include="app\entity\addEntityCtrl.js" />
+    <Content Include="app\entity\edit-entity.html" />
+    <Content Include="app\entity\editEntityCtrl.js" />
     <Content Include="app\entity\entity.html" />
     <Content Include="app\entity\entityCtrl.js" />
     <Content Include="app\entity\entityData.js" />
-    <Content Include="app\entity\update-entity.html" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeCtrl.js" />
     <Content Include="content\bootstrap-theme.css" />

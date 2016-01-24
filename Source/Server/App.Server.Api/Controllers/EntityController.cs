@@ -76,7 +76,7 @@ namespace App.Server.Api.Controllers
             return this.Ok(responseModel);
         }
 
-        [HttpPut]
+        [HttpPatch]
         public async Task<IHttpActionResult> Edit(EntityRequestModel requestModel)
         {
             var entity = this.mappingService.Map<Entity>(requestModel);

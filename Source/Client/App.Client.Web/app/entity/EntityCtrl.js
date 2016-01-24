@@ -13,32 +13,20 @@
         var vm = this;
 
         vm.getEntity = getEntity;
-        vm.addEntity = addEntity;
-        vm.updateEntity = updateEntity;
         vm.deleteEntity = deleteEntity;
 
         if (Number($routeParams.id)) {
-            entityData.getEntity($routeParams.id)
-                .then(onGetSuccess, onFail);
+            getEntity($routeParams.id);
         }
 
         function getEntity(id) {
             entityData.getEntity(id)
-                .then(onGetSuccess, onFail);
-        }
-
-        function addEntity(entity) {
-            entityData.addEntity(entity)
-                .then(onAddSuccess, onFail);
-        }
-
-        function updateEntity(entity) {
-            // TODO: Implement
+                .then(onGetSuccess, onGetFail);
         }
 
         function deleteEntity(id) {
             entityData.deleteEntity(id)
-                .then(onDeleteSuccess, onFail);
+                .then(onDeleteSuccess, onDeleteFailed);
         }
 
 
@@ -46,27 +34,23 @@
 
         // GET
         function onGetSuccess(response) {
+            logger.log(response);
             vm.entity = response;
         }
 
-        // ADD
-        function onAddSuccess(response) {
-            $location.path('/');
+        function onGetFail(error) {
+            logger.error(error.message);
+            $location.path('/404-not-found');
         }
 
-        // UPDATE
-        function onUpdateSuccess(response) {
-            $location.path('/');
-        }
 
         // DELETE
         function onDeleteSuccess() {
             $location.path('/');
         }
 
-        function onFail(error) {
+        function onDeleteFailed(error) {
             logger.error(error.message);
-            $location.path('/404-not-found');
         }
     }
 

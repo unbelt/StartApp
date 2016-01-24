@@ -19,8 +19,7 @@
 
         function getAllEntities() {
             entityData.getAllEntities()
-                .then(getEntitiesComplete)
-                .catch(getEntitiesFailed);
+                .then(getEntitiesComplete, getEntitiesFailed);
 
             function getEntitiesComplete(response) {
                 vm.entities = response;

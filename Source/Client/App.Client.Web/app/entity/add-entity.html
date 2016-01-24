@@ -9,7 +9,7 @@
             <input type="text" value="" id="content" class="form-control" placeholder="Content" data-ng-model="vm.entity.content" />
         </div>
         <div class="form-group">
-            <input type="submit" value="Submit" class="btn btn-default" data-ng-disabled="isSubmitDisabled || !vm.entity" data-ng-click="vm.addEntity(vm.entity)" />
+            <input type="submit" value="Submit" class="btn btn-default" data-ng-disabled="isSubmitDisabled || !vm.entity.title || !vm.entity.content" data-ng-click="vm.addEntity(vm.entity)" />
         </div>
     </form>
 </div>

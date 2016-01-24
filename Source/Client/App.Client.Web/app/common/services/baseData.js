@@ -56,8 +56,24 @@
             return deferred.promise;
         }
 
-        function update(url, data) {
-            // TODO: Implement
+        function update(path, data) {
+            var deferred = $q.defer();
+
+            var url = appSettings.serverPath + path;
+
+            var headers = {
+                'Content-Type': 'application/json'
+            };
+
+            $http.patch(url, data, headers)
+                .success(function onSuccess(data) {
+                    deferred.resolve(data);
+                })
+                .error(function onError(error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
         }
 
         function remove(path) {

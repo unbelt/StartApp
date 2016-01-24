@@ -12,7 +12,7 @@
             getEntity: getEntity,
             getAllEntities: getAllEntities,
             addEntity: addEntity,
-            updateEntity: updateEntity,
+            editEntity: editEntity,
             deleteEntity: deleteEntity
         };
 
@@ -30,8 +30,8 @@
             return data.post('entity/post', entity);
         }
 
-        function updateEntity(entity) {
-            // TOOD: Implement
+        function editEntity(entity) {
+            return data.update('entity/edit', entity);
         }
 
         function deleteEntity(id) {

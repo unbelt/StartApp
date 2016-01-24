@@ -23,7 +23,7 @@
 
         function success(message, data, title) {
             toastr.success(message, title);
-            $log.success('Success: ' + message, data);
+            $log.log('Success: ' + message, data);
         }
 
         function error(message, data, title) {

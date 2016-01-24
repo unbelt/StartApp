@@ -1,0 +1,16 @@
+﻿<div class="col-md-8">
+    <form>
+        <div class="form-group">
+            <label class="control-label" for="title"></label>
+            <input type="text" id="title" class="form-control" placeholder="Title" data-ng-model="vm.entity.title" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="content"></label>
+            <input type="text" id="content" class="form-control" placeholder="Content" data-ng-model="vm.entity.content" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Back" class="btn btn-default" onclick="window.history.back()" />
+            <input type="submit" value="Edit" class="btn btn-warning" data-ng-disabled="isSubmitDisabled || !vm.entity.title || !vm.entity.content" data-ng-click="vm.editEntity(vm.entity)" />
+        </div>
+    </form>
+</div>

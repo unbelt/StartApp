@@ -40,15 +40,15 @@
             })
             .when('/entity/add', {
                 templateUrl: '/app/entity/add-entity.html',
-                controller: 'EntityCtrl',
+                controller: 'AddEntityCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Add Entity'
             })
-            .when('/entity/update', {
-                templateUrl: '/app/entity/update-entity.html',
-                controller: 'EntityCtrl',
+            .when('/entity/edit/:id', {
+                templateUrl: '/app/entity/edit-entity.html',
+                controller: 'EditEntityCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'Update Entity'
+                title: 'Edit Entity'
             })
             .otherwise({
                 redirectTo: '404-not-found',
