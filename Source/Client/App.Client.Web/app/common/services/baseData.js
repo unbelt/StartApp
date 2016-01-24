@@ -13,7 +13,9 @@
 
         var service = {
             get: get,
-            post: post
+            post: post,
+            update: update,
+            remove: remove
         };
 
         return service;
@@ -44,6 +46,26 @@
             };
 
             $http.post(url, data, headers)
+                .success(function onSuccess(data) {
+                    deferred.resolve(data);
+                })
+                .error(function onError(error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+        function update(url, data) {
+            // TODO: Implement
+        }
+
+        function remove(path) {
+            var deferred = $q.defer();
+
+            var url = appSettings.serverPath + path;
+
+            $http.delete(url)
                 .success(function onSuccess(data) {
                     deferred.resolve(data);
                 })

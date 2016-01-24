@@ -35,7 +35,7 @@
         }
 
         function deleteEntity(id) {
-            return data.post('entity/delete', id);
+            return data.remove('entity/delete/' + id);
         }
     }
 
