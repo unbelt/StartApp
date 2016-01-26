@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\common\controllers\mainCtrl.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
     <Content Include="app\common\services\baseData.js" />
@@ -61,6 +62,15 @@
     <Content Include="app\entity\entityData.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\homeCtrl.js" />
+    <Content Include="app\user\login.html" />
+    <Content Include="app\user\register.html" />
+    <Content Include="app\user\registerCtrl.js" />
+    <Content Include="app\user\loginCtrl.js" />
+    <Content Include="app\user\user-list.html" />
+    <Content Include="app\user\user.html" />
+    <Content Include="app\user\userCtrl.js" />
+    <Content Include="app\user\userListCtrl.js" />
+    <Content Include="app\user\userData.js" />
     <Content Include="content\bootstrap-theme.css" />
     <Content Include="content\bootstrap-theme.min.css" />
     <Content Include="content\bootstrap.css" />
@@ -885,6 +895,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

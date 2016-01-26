@@ -26,12 +26,15 @@
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         $routeProvider
+            // HOME
             .when('/', {
                 templateUrl: '/app/home/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Home'
             })
+
+            // ENTITY
             .when('/entity/get/:id', {
                 templateUrl: '/app/entity/entity.html',
                 controller: 'EntityCtrl',
@@ -50,6 +53,34 @@
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Edit Entity'
             })
+
+            // USER
+            .when('/user/all', {
+                templateUrl: '/app/user/user-list.html',
+                controller: 'UserListCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'All Users'
+            })
+            .when('/user/get/:id', {
+                templateUrl: '/app/user/user.html',
+                controller: 'UserCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'User Profile'
+            })
+            .when('/user/login', {
+                templateUrl: '/app/user/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'Login'
+            })
+            .when('/user/register', {
+                templateUrl: '/app/user/register.html',
+                controller: 'RegisterCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'Register'
+            })
+
+            // 404
             .otherwise({
                 redirectTo: '404-not-found',
                 templateUrl: '/app/common/views/not-found.html',

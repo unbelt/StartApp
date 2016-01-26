@@ -38,7 +38,7 @@
 
             if (!entities.Any())
             {
-                return this.NotFound();
+                return this.BadRequest("The entity list is empty!");
             }
 
             return this.Ok(entities);
@@ -54,7 +54,7 @@
 
             if (model == null)
             {
-                return this.BadRequest("Not found!");
+                return this.BadRequest("Entity not found!");
             }
 
             return this.Ok(model);
@@ -92,7 +92,7 @@
 
             if (editedEntity == null)
             {
-                return this.NotFound();
+                return this.BadRequest("Entity not found!");
             }
 
             var responseModel = this.mappingService.Map<EntityResponseModel>(editedEntity);

@@ -1,0 +1,18 @@
+﻿<div class="col-md-8">
+    <h1>{{ title }}</h1>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="user in vm.users">
+            <td><a href="user/get/{{ user.userName }}">{{ user.userName }}</a></td>
+            <td>{{ user.email }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -29,32 +29,33 @@
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+        // GET api/Account/GetAll
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IHttpActionResult> GetAll()
         {
             var users = await base.UserManager.Users.ToListAsync();
-            var response = this.mappingService.Map<IList<User>>(users);
+            var response = this.mappingService.Map<IList<UserResponseModel>>(users);
 
             if (!response.Any())
             {
-                return this.NotFound();
+                return this.BadRequest("The user list is empty!");
             }
 
             return this.Ok(response);
         }
 
+        // GET api/Account/Get/{username}
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> Get(string userName)
+        public async Task<IHttpActionResult> Get(string username)
         {
-            var user = await base.UserManager.FindByNameAsync(userName);
-            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+            var user = await base.UserManager.FindByNameAsync(username);
 
-            if (responseModel == null)
+            if (user == null)
             {
-                return this.NotFound();
+                return this.BadRequest("User not found!");
             }
+
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             return this.Ok(responseModel);
         }
@@ -63,13 +64,14 @@
         [HttpPost]
         public async Task<IHttpActionResult> Login(LoginBindingModel model)
         {
-            var user = await base.UserManager.FindAsync(model.Email, model.Password);
-            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+            var user = await base.UserManager.FindAsync(model.UserName, model.Password);
 
-            if (responseModel == null)
+            if (user == null)
             {
                 return this.BadRequest("Wrong username or password!");
             }
+
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             return this.Ok(responseModel);
         }
@@ -85,12 +87,13 @@
 
             var user = this.mappingService.Map<User>(model);
             var result = await base.UserManager.CreateAsync(user, model.Password);
-            var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (!result.Succeeded)
             {
                 return this.GetErrorResult(result);
             }
+
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             return this.Ok(responseModel);
         }
@@ -114,7 +117,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            IdentityResult result = await base.UserManager
+            var result = await base.UserManager
                 .ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
