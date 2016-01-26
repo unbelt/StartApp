@@ -13,6 +13,8 @@
 
 
         function addEntity(entity) {
+            entity.userId = '9274425f-805b-46d7-adb5-e8a03ec6729d'; // TODO: For testing porpoise
+
             entityData.addEntity(entity)
                 .then(onAddSuccess, onAddFailed);
         }

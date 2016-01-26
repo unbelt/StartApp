@@ -63,14 +63,12 @@
         [HttpPost]
         public async Task<IHttpActionResult> Post(EntityRequestModel requestModel)
         {
-            var user = await base.UserManager.FindByNameAsync("admin");
+            var user = await base.UserManager.FindByIdAsync(requestModel.UserId);
 
             if (user == null)
             {
                 return this.BadRequest("User not found!");
             }
-
-            requestModel.UserId = user.Id;
 
             if (requestModel.DateCreated == null)
             {
@@ -80,6 +78,7 @@
             var entity = this.mappingService.Map<Entity>(requestModel);
             var addedEntity = await this.entityService.AddEntity(entity);
             var responseModel = this.mappingService.Map<EntityResponseModel>(addedEntity);
+            responseModel.UserName = user.UserName;
 
             return this.Ok(responseModel);
         }

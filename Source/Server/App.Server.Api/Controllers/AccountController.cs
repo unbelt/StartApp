@@ -22,10 +22,9 @@
     {
         private readonly IMappingService mappingService;
 
-        public AccountController(IMappingService mappingService, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(IMappingService mappingService)
         {
             this.mappingService = mappingService;
-            this.AccessTokenFormat = accessTokenFormat;
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
