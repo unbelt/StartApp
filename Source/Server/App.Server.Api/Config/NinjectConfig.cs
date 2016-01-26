@@ -1,20 +1,20 @@
-﻿using System;
-using System.Data.Entity;
-using System.Web;
-
-using App.Data;
-using App.Data.Repository;
-using App.Server.Common;
-using App.Server.Infrastructure.Auth;
-using App.Services.Data.Contracts;
-using App.Services.Logic;
-
-using Ninject;
-using Ninject.Extensions.Conventions;
-using Ninject.Web.Common;
-
-namespace App.Server.Api.Config
+﻿namespace App.Server.Api.Config
 {
+    using System;
+    using System.Data.Entity;
+    using System.Web;
+
+    using App.Data;
+    using App.Data.Repositories;
+    using App.Server.Common;
+    using App.Server.Infrastructure.Auth;
+    using App.Services.Data.Contracts;
+    using App.Services.Logic;
+
+    using Ninject;
+    using Ninject.Extensions.Conventions;
+    using Ninject.Web.Common;
+
     public static class NinjectConfig
     {
         public static IKernel CreateKernel()

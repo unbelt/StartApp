@@ -1,9 +1,9 @@
-﻿using App.Data.Models;
-using App.Data.Repository;
-using App.Services.Data.Contracts;
-
-namespace App.Services.Data
+﻿namespace App.Services.Data
 {
+    using App.Data.Models;
+    using App.Data.Repositories;
+    using App.Services.Data.Contracts;
+
     public class UserService : IUserService
     {
         private readonly IRepository<User> users;

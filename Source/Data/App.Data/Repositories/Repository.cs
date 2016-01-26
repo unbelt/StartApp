@@ -1,12 +1,12 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-
-using App.Data.Common;
-
-namespace App.Data.Repository
+﻿namespace App.Data.Repositories
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using App.Data.Common;
+
     public class Repository<T> : IRepository<T> where T : class
     {
         public Repository(DbContext context)
@@ -67,24 +67,24 @@ namespace App.Data.Repository
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing && this.Context != null)
                 {
                     this.Context.Dispose();
                 }
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
         #endregion
 

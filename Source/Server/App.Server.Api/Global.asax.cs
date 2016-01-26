@@ -1,7 +1,7 @@
-﻿using System.Web;
-
-namespace App.Server.Api
+﻿namespace App.Server.Api
 {
+    using System.Web;
+
     public class WebApiApplication : HttpApplication
     {
     }

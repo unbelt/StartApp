@@ -1,7 +1,7 @@
-﻿using App.Server.Common.Mapping;
-
-namespace App.Server.DataTransferModels.User
+﻿namespace App.Server.DataTransferModels.User
 {
+    using App.Server.Common.Mapping;
+
     public class UserResponseModel : IMapFrom<Data.Models.User>
     {
         public string Id { get; set; }

@@ -1,16 +1,16 @@
-﻿using System;
-
-using App.Data;
-using App.Server.Api.Providers;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
-using Owin;
-
-namespace App.Server.Api.Config
+﻿namespace App.Server.Api.Config
 {
+    using System;
+
+    using App.Data;
+    using App.Server.Api.Providers;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.OAuth;
+    using Owin;
+
     public static partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
@@ -36,6 +36,7 @@ namespace App.Server.Api.Config
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

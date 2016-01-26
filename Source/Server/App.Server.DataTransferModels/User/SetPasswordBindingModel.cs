@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace App.Server.DataTransferModels.User
+﻿namespace App.Server.DataTransferModels.User
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class SetPasswordBindingModel
     {
         [Required]

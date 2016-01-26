@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-
-using App.Data.Models;
-using App.Server.Api.Config;
-using App.Server.DataTransferModels.User;
-using App.Services.Data.Contracts;
-using App.Services.Logic.Mapping;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-
-namespace App.Server.Api.Controllers
+﻿namespace App.Server.Api.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Cryptography;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Http;
+
+    using App.Data.Models;
+    using App.Server.Api.Config;
+    using App.Server.DataTransferModels.User;
+    using App.Services.Logic.Mapping;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+
     [Authorize]
     public class AccountController : BaseController
     {
@@ -33,17 +32,15 @@ namespace App.Server.Api.Controllers
             this.mappingService = mappingService;
         }
 
-        //public AccountController(IMappingService mappingService,
-        //    IUserService userService,
-        //    ApplicationUserManager userManager,
-        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        //{
-        //    this.mappingService = mappingService;
-        //    this.userService = userService;
+        /*public AccountController(IMappingService mappingService,
+            ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        {
+            this.mappingService = mappingService;
 
-        //    this.UserManager = userManager;
-        //    this.AccessTokenFormat = accessTokenFormat;
-        //}
+            this.UserManager = userManager;
+            this.AccessTokenFormat = accessTokenFormat;
+        }*/
 
         public ApplicationUserManager UserManager
         {
@@ -51,6 +48,7 @@ namespace App.Server.Api.Controllers
             {
                 return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+
             private set
             {
                 this.userManager = value;
@@ -111,7 +109,7 @@ namespace App.Server.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             var user = this.mappingService.Map<User>(model);
@@ -140,11 +138,11 @@ namespace App.Server.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-                model.NewPassword);
+            IdentityResult result = await this.UserManager
+                .ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -160,10 +158,11 @@ namespace App.Server.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            IdentityResult result = await this.UserManager
+                .AddPasswordAsync(this.User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -204,7 +203,7 @@ namespace App.Server.Api.Controllers
                 {
                     foreach (string error in result.Errors)
                     {
-                        this.ModelState.AddModelError("", error);
+                        this.ModelState.AddModelError(string.Empty, error);
                     }
                 }
 
@@ -214,7 +213,7 @@ namespace App.Server.Api.Controllers
                     return this.BadRequest();
                 }
 
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             return null;
@@ -226,14 +225,14 @@ namespace App.Server.Api.Controllers
 
             public static string Generate(int strengthInBits)
             {
-                const int bitsPerByte = 8;
+                const int BitsPerByte = 8;
 
-                if (strengthInBits % bitsPerByte != 0)
+                if (strengthInBits % BitsPerByte != 0)
                 {
                     throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
                 }
 
-                int strengthInBytes = strengthInBits / bitsPerByte;
+                int strengthInBytes = strengthInBits / BitsPerByte;
 
                 byte[] data = new byte[strengthInBytes];
                 random.GetBytes(data);

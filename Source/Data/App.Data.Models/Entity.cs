@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace App.Data.Models
+﻿namespace App.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class Entity
     {
         [Key]

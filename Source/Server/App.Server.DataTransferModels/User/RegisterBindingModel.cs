@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-using App.Server.Common.Mapping;
-
-namespace App.Server.DataTransferModels.User
+﻿namespace App.Server.DataTransferModels.User
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using App.Server.Common.Mapping;
+
     public class RegisterBindingModel : IMapFrom<Data.Models.User>
     {
         [Required]

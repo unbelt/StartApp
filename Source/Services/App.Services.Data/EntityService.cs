@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-
-using App.Data.Models;
-using App.Data.Repository;
-using App.Services.Data.Contracts;
-
-namespace App.Services.Data
+﻿namespace App.Services.Data
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using App.Data.Models;
+    using App.Data.Repositories;
+    using App.Services.Data.Contracts;
+
     public class EntityService : IEntityService
     {
         private readonly IRepository<Entity> entities;

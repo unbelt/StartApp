@@ -1,13 +1,13 @@
-﻿using System.Data.Entity;
-
-using App.Data.Common;
-using App.Data.Migrations;
-using App.Data.Models;
-
-using Microsoft.AspNet.Identity.EntityFramework;
-
-namespace App.Data
+﻿namespace App.Data
 {
+    using System.Data.Entity;
+
+    using App.Data.Common;
+    using App.Data.Migrations;
+    using App.Data.Models;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext()

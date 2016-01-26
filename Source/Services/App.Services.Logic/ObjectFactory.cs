@@ -1,9 +1,9 @@
-﻿using System;
-
-using Ninject;
-
-namespace App.Services.Logic
+﻿namespace App.Services.Logic
 {
+    using System;
+
+    using Ninject;
+
     public class ObjectFactory : IObjectFactory
     {
         private static IKernel staticKernel;

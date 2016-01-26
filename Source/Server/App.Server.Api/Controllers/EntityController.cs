@@ -1,21 +1,21 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-
-using App.Data.Models;
-using App.Server.Api.Config;
-using App.Services.Data.Contracts;
-using App.Services.Logic.Mapping;
-using App.Server.DataTransferModels.Entity;
-
-using AutoMapper.QueryableExtensions;
-using Microsoft.AspNet.Identity.Owin;
-
-namespace App.Server.Api.Controllers
+﻿namespace App.Server.Api.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+
+    using App.Data.Models;
+    using App.Server.Api.Config;
+    using App.Server.DataTransferModels.Entity;
+    using App.Services.Data.Contracts;
+    using App.Services.Logic.Mapping;
+
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNet.Identity.Owin;
+
     [AllowAnonymous] // TODO: For testing porpouse only!
     public class EntityController : BaseController
     {
@@ -36,6 +36,7 @@ namespace App.Server.Api.Controllers
             {
                 return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+
             private set
             {
                 this.userManager = value;

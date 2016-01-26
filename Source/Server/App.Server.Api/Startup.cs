@@ -1,15 +1,15 @@
-﻿using System.Reflection;
-using System.Web.Http;
-
-using App.Server.Api.Config;
-using App.Server.Common;
-
-using Ninject.Web.Common.OwinHost;
-using Ninject.Web.WebApi.OwinHost;
-using Owin;
-
-namespace App.Server.Api
+﻿namespace App.Server.Api
 {
+    using System.Reflection;
+    using System.Web.Http;
+
+    using App.Server.Api.Config;
+    using App.Server.Common;
+
+    using Ninject.Web.Common.OwinHost;
+    using Ninject.Web.WebApi.OwinHost;
+    using Owin;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

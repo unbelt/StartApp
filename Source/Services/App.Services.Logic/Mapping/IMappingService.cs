@@ -1,7 +1,7 @@
-﻿using App.Services.Data.Contracts;
-
-namespace App.Services.Logic.Mapping
+﻿namespace App.Services.Logic.Mapping
 {
+    using App.Services.Data.Contracts;
+
     public interface IMappingService : IService
     {
         T Map<T>(object source);

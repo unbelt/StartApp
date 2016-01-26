@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-
-using App.Data.Models;
-
-namespace App.Services.Data.Contracts
+﻿namespace App.Services.Data.Contracts
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using App.Data.Models;
+
     public interface IEntityService : IService
     {
         IQueryable<Entity> GetAllEntities();

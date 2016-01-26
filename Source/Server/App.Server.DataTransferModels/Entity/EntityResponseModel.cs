@@ -1,11 +1,11 @@
-﻿using System;
-
-using App.Server.Common.Mapping;
-
-using AutoMapper;
-
-namespace App.Server.DataTransferModels.Entity
+﻿namespace App.Server.DataTransferModels.Entity
 {
+    using System;
+
+    using App.Server.Common.Mapping;
+
+    using AutoMapper;
+
     public class EntityResponseModel : IMapFrom<Data.Models.Entity>, IHaveCustomMapping
     {
         public int Id { get; set; }

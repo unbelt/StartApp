@@ -5,9 +5,9 @@ namespace App.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    using Microsoft.AspNet.Identity;
-
     using App.Data.Models;
+
+    using Microsoft.AspNet.Identity;
 
     public sealed class Configuration : DbMigrationsConfiguration<AppDbContext>
     {

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web.Mvc;
-
-using App.Server.Common.Mapping;
-
-using AutoMapper;
-
-namespace App.Server.Api.Config
+﻿namespace App.Server.Api.Config
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Web.Mvc;
+
+    using App.Server.Common.Mapping;
+
+    using AutoMapper;
+
     public class AutoMapperConfig
     {
         public static void RegisterMappings(params Assembly[] assemblies)

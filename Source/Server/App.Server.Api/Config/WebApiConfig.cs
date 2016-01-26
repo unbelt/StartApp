@@ -1,13 +1,13 @@
-﻿using System.Net.Http.Headers;
-using System.Web.Http;
-using System.Web.Http.Cors;
-
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-
-namespace App.Server.Api.Config
+﻿namespace App.Server.Api.Config
 {
+    using System.Net.Http.Headers;
+    using System.Web.Http;
+    using System.Web.Http.Cors;
+
+    using Microsoft.Owin.Security.OAuth;
+    using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Serialization;
+
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
@@ -22,8 +22,7 @@ namespace App.Server.Api.Config
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { controller = "Entity", action = "GetAll", id = RouteParameter.Optional }
-            );
+                defaults: new { controller = "Entity", action = "GetAll", id = RouteParameter.Optional });
 
             // JSON Formatters
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));

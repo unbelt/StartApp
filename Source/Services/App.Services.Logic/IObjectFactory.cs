@@ -1,9 +1,9 @@
-﻿using System;
-
-using App.Services.Data.Contracts;
-
-namespace App.Services.Logic
+﻿namespace App.Services.Logic
 {
+    using System;
+
+    using App.Services.Data.Contracts;
+
     public interface IObjectFactory : IService
     {
         T GetInstance<T>();

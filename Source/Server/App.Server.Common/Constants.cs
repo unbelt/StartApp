@@ -1,6 +1,6 @@
 ﻿namespace App.Server.Common
 {
-    public static class  Constants
+    public static class Constants
     {
         public const string DataTransferModelsAssembly = "App.Server.DataTransferModels";
         public const string InfrastructureAssembly = "App.Server.Infrastructure";

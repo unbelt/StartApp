@@ -1,9 +1,9 @@
-﻿using System.Threading;
-
-using Microsoft.AspNet.Identity;
-
-namespace App.Server.Infrastructure.Auth
+﻿namespace App.Server.Infrastructure.Auth
 {
+    using System.Threading;
+
+    using Microsoft.AspNet.Identity;
+
     public class AspNetUserProvider : IUserProvider
     {
         public string GetUserId()
