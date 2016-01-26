@@ -11,57 +11,30 @@
     using System.Web.Http;
 
     using App.Data.Models;
-    using App.Server.Api.Config;
     using App.Server.DataTransferModels.User;
     using App.Services.Logic.Mapping;
 
     using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
 
-    [Authorize]
     public class AccountController : BaseController
     {
         private readonly IMappingService mappingService;
 
-        private ApplicationUserManager userManager;
-
-        public AccountController(IMappingService mappingService)
+        public AccountController(IMappingService mappingService, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             this.mappingService = mappingService;
-        }
-
-        /*public AccountController(IMappingService mappingService,
-            ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            this.mappingService = mappingService;
-
-            this.UserManager = userManager;
             this.AccessTokenFormat = accessTokenFormat;
-        }*/
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-
-            private set
-            {
-                this.userManager = value;
-            }
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        [AllowAnonymous]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetAll()
         {
-            var users = await this.UserManager.Users.ToListAsync();
+            var users = await base.UserManager.Users.ToListAsync();
             var response = this.mappingService.Map<IList<User>>(users);
 
             if (!response.Any())
@@ -72,11 +45,11 @@
             return this.Ok(response);
         }
 
-        [AllowAnonymous]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> Get(string userName)
         {
-            var user = await this.UserManager.FindByNameAsync(userName);
+            var user = await base.UserManager.FindByNameAsync(userName);
             var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (responseModel == null)
@@ -89,10 +62,9 @@
 
         // POST api/Account/Login
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IHttpActionResult> Login(LoginBindingModel model)
         {
-            var user = await this.UserManager.FindAsync(model.Email, model.Password);
+            var user = await base.UserManager.FindAsync(model.Email, model.Password);
             var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (responseModel == null)
@@ -104,7 +76,7 @@
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
+        [HttpPost]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -113,7 +85,7 @@
             }
 
             var user = this.mappingService.Map<User>(model);
-            var result = await this.UserManager.CreateAsync(user, model.Password);
+            var result = await base.UserManager.CreateAsync(user, model.Password);
             var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (!result.Succeeded)
@@ -125,7 +97,8 @@
         }
 
         // POST api/Account/Logout
-        [Route("Logout")]
+        [HttpPost]
+        [Authorize]
         public IHttpActionResult Logout()
         {
             this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -133,7 +106,8 @@
         }
 
         // POST api/Account/ChangePassword
-        [Route("ChangePassword")]
+        [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -141,7 +115,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            IdentityResult result = await this.UserManager
+            IdentityResult result = await base.UserManager
                 .ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
@@ -153,7 +127,8 @@
         }
 
         // POST api/Account/SetPassword
-        [Route("SetPassword")]
+        [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -161,7 +136,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            IdentityResult result = await this.UserManager
+            var result = await base.UserManager
                 .AddPasswordAsync(this.User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
@@ -170,17 +145,6 @@
             }
 
             return this.Ok();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && this.userManager != null)
-            {
-                this.userManager.Dispose();
-                this.userManager = null;
-            }
-
-            base.Dispose(disposing);
         }
 
         #region Helpers
@@ -221,7 +185,7 @@
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {

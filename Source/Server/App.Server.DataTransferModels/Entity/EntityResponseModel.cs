@@ -14,14 +14,14 @@
 
         public string Content { get; set; }
 
-        public string User { get; set; }
+        public string UserName { get; set; }
 
         public DateTime DateCreated { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Data.Models.Entity, EntityResponseModel>()
-                .ForMember(u => u.User, opt => opt.MapFrom(u => u.User.UserName));
+                .ForMember(u => u.UserName, opt => opt.MapFrom(u => u.User.UserName));
         }
     }
 }

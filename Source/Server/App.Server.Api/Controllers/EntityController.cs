@@ -22,25 +22,10 @@
         private readonly IMappingService mappingService;
         private readonly IEntityService entityService;
 
-        private ApplicationUserManager userManager;
-
         public EntityController(IMappingService mappingService, IEntityService entityService)
         {
             this.mappingService = mappingService;
             this.entityService = entityService;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-
-            private set
-            {
-                this.userManager = value;
-            }
         }
 
         [HttpGet]
@@ -78,7 +63,7 @@
         [HttpPost]
         public async Task<IHttpActionResult> Post(EntityRequestModel requestModel)
         {
-            var user = await this.UserManager.FindByNameAsync("admin");
+            var user = await base.UserManager.FindByNameAsync("admin");
 
             if (user == null)
             {
