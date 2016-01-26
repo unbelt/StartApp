@@ -1,9 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using App.Server.Common.Mapping;
+
 namespace App.Server.DataTransferModels.User
 {
-    public class RegisterBindingModel
+    public class RegisterBindingModel : IMapFrom<Data.Models.User>
     {
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }

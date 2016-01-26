@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -18,22 +19,18 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 
-using AutoMapper.QueryableExtensions;
-
 namespace App.Server.Api.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
         private readonly IMappingService mappingService;
-        private readonly IUserService userService;
 
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager userManager;
 
-        public AccountController(IMappingService mappingService, IUserService userService)
+        public AccountController(IMappingService mappingService)
         {
             this.mappingService = mappingService;
-            this.userService = userService;
         }
 
         //public AccountController(IMappingService mappingService,
@@ -52,11 +49,11 @@ namespace App.Server.Api.Controllers
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager = value;
+                this.userManager = value;
             }
         }
 
@@ -64,26 +61,24 @@ namespace App.Server.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public async Task<IHttpActionResult> GetAll()
         {
-            var users = this.userService
-               .GetAllUsers()
-               .ProjectTo<UserResponseModel>()
-               .ToList();
+            var users = await this.UserManager.Users.ToListAsync();
+            var response = this.mappingService.Map<IList<User>>(users);
 
-            if (!users.Any())
+            if (!response.Any())
             {
                 return this.NotFound();
             }
 
-            return this.Ok(users);
+            return this.Ok(response);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public IHttpActionResult Get(string id)
+        public async Task<IHttpActionResult> Get(string userName)
         {
-            var user = this.userService.GetUser(id);
+            var user = await this.UserManager.FindByNameAsync(userName);
             var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (responseModel == null)
@@ -94,23 +89,24 @@ namespace App.Server.Api.Controllers
             return this.Ok(responseModel);
         }
 
-        // POST api/user/login
+        // POST api/Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
         public async Task<IHttpActionResult> Login(LoginBindingModel model)
         {
-            if (model == null)
+            var user = await this.UserManager.FindAsync(model.Email, model.Password);
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+
+            if (responseModel == null)
             {
-                return this.BadRequest();
+                return this.BadRequest("Wrong username or password!");
             }
 
-            return this.Ok();
+            return this.Ok(responseModel);
         }
 
         // POST api/Account/Register
         [AllowAnonymous]
-        [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -118,24 +114,24 @@ namespace App.Server.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var user = this.mappingService.Map<User>(model);
+            var result = await this.UserManager.CreateAsync(user, model.Password);
+            var responseModel = this.mappingService.Map<UserResponseModel>(user);
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return this.GetErrorResult(result);
             }
 
-            return Ok();
+            return this.Ok(responseModel);
         }
 
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
+            this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return this.Ok();
         }
 
         // POST api/Account/ChangePassword
@@ -144,7 +140,7 @@ namespace App.Server.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(ModelState);
             }
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
@@ -152,10 +148,10 @@ namespace App.Server.Api.Controllers
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return this.GetErrorResult(result);
             }
 
-            return Ok();
+            return this.Ok();
         }
 
         // POST api/Account/SetPassword
@@ -164,25 +160,25 @@ namespace App.Server.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(ModelState);
             }
 
             IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return this.GetErrorResult(result);
             }
 
-            return Ok();
+            return this.Ok();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && this.userManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                this.userManager.Dispose();
+                this.userManager = null;
             }
 
             base.Dispose(disposing);
@@ -192,14 +188,14 @@ namespace App.Server.Api.Controllers
 
         private IAuthenticationManager Authentication
         {
-            get { return Request.GetOwinContext().Authentication; }
+            get { return this.Request.GetOwinContext().Authentication; }
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
             {
-                return InternalServerError();
+                return this.InternalServerError();
             }
 
             if (!result.Succeeded)
@@ -208,17 +204,17 @@ namespace App.Server.Api.Controllers
                 {
                     foreach (string error in result.Errors)
                     {
-                        ModelState.AddModelError("", error);
+                        this.ModelState.AddModelError("", error);
                     }
                 }
 
-                if (ModelState.IsValid)
+                if (this.ModelState.IsValid)
                 {
                     // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
+                    return this.BadRequest();
                 }
 
-                return BadRequest(ModelState);
+                return this.BadRequest(ModelState);
             }
 
             return null;
@@ -226,7 +222,7 @@ namespace App.Server.Api.Controllers
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
+            private static RandomNumberGenerator random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
@@ -240,7 +236,7 @@ namespace App.Server.Api.Controllers
                 int strengthInBytes = strengthInBits / bitsPerByte;
 
                 byte[] data = new byte[strengthInBytes];
-                _random.GetBytes(data);
+                random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }

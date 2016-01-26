@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 using App.Data.Models;
+using App.Server.Api.Config;
 using App.Services.Data.Contracts;
 using App.Services.Logic.Mapping;
 using App.Server.DataTransferModels.Entity;
 
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace App.Server.Api.Controllers
 {
@@ -18,13 +21,25 @@ namespace App.Server.Api.Controllers
     {
         private readonly IMappingService mappingService;
         private readonly IEntityService entityService;
-        private readonly IUserService userService;
 
-        public EntityController(IMappingService mappingService, IEntityService entityService, IUserService userService)
+        private ApplicationUserManager userManager;
+
+        public EntityController(IMappingService mappingService, IEntityService entityService)
         {
             this.mappingService = mappingService;
             this.entityService = entityService;
-            this.userService = userService;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return this.userManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                this.userManager = value;
+            }
         }
 
         [HttpGet]
@@ -62,7 +77,14 @@ namespace App.Server.Api.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Post(EntityRequestModel requestModel)
         {
-            requestModel.UserId = this.userService.GetUser("admin").Id;
+            var user = await this.UserManager.FindByNameAsync("admin");
+
+            if (user == null)
+            {
+                return this.BadRequest("User not found!");
+            }
+
+            requestModel.UserId = user.Id;
 
             if (requestModel.DateCreated == null)
             {
