@@ -22,7 +22,7 @@
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { controller = "Entity", action = "GetAll", id = RouteParameter.Optional });
+                defaults: new { action = "GetAll", id = RouteParameter.Optional });
 
             // Disable the XML media formatter (because it cannot serialize anonymous types)
             config.Formatters.Remove(config.Formatters.XmlFormatter);

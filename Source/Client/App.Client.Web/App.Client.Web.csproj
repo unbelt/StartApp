@@ -47,7 +47,9 @@
     <Content Include="app\common\controllers\mainCtrl.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
+    <Content Include="app\common\services\identity.js" />
     <Content Include="app\common\services\baseData.js" />
+    <Content Include="app\common\services\cookieStorage.js" />
     <Content Include="app\common\services\logger.js" />
     <Content Include="app\common\services\utils.js" />
     <Content Include="app\common\views\app-footer.html" />
@@ -67,8 +69,8 @@
     <Content Include="app\user\registerCtrl.js" />
     <Content Include="app\user\loginCtrl.js" />
     <Content Include="app\user\user-list.html" />
-    <Content Include="app\user\user.html" />
-    <Content Include="app\user\userCtrl.js" />
+    <Content Include="app\user\profile.html" />
+    <Content Include="app\user\profileCtrl.js" />
     <Content Include="app\user\userListCtrl.js" />
     <Content Include="app\user\userData.js" />
     <Content Include="content\bootstrap-theme.css" />

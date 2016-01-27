@@ -7,9 +7,9 @@
     angular.module('app.controllers')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$location', 'userData', 'logger'];
+    LoginCtrl.$inject = ['$location', 'userData', 'identity', 'logger'];
 
-    function LoginCtrl($location, userData, logger) {
+    function LoginCtrl($location, userData, identity, logger) {
         var vm = this;
 
         vm.login = login;
@@ -24,9 +24,9 @@
         // PRIVATE FUNCTIONS
 
         function onLoginSuccess(response) {
-            // TODO: Implement
-            $location.path('/');
+            identity.setCurrentUser(response);
             logger.log(response);
+            $location.path('/');
         }
 
         function onLoginFailed(error) {

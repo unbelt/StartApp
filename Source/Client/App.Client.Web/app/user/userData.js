@@ -12,22 +12,14 @@
     function userData(data) {
 
         var service = {
-            getAllUsers: getAllUsers,
-            getUserByUserName: getUserByUserName,
             login: login,
-            register: register
+            register: register,
+            getAllUsers: getAllUsers,
+            getUserByUserName: getUserByUserName
         };
 
         return service;
 
-
-        function getAllUsers() {
-            return data.get('account/getall');
-        }
-
-        function getUserByUserName(username) {
-            return data.get('account/get/' + username);
-        }
 
         function login(user) {
             return data.post('account/login', user);
@@ -35,6 +27,14 @@
 
         function register(user) {
             return data.post('account/register', user);
+        }
+
+        function getAllUsers() {
+            return data.get('account/getall');
+        }
+
+        function getUserByUserName(username) {
+            return data.get('account/get/' + username);
         }
     }
 

@@ -47,13 +47,18 @@
 
         // GET api/Account/Get/{username}
         [HttpGet]
-        public async Task<IHttpActionResult> Get(string username)
+        public async Task<IHttpActionResult> Get(string id)
         {
-            var user = await UserManager.FindByNameAsync(username);
+            var user = await UserManager.FindByIdAsync(id);
 
             if (user == null)
             {
-                return this.BadRequest("User not found!");
+                user = await UserManager.FindByNameAsync(id);
+
+                if (user == null)
+                {
+                    return this.BadRequest("User not found!");
+                }
             }
 
             var responseModel = this.mappingService.Map<UserResponseModel>(user);

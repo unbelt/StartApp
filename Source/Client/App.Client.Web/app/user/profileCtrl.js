@@ -5,11 +5,11 @@
     'use strict';
 
     angular.module('app.controllers')
-        .controller('UserCtrl', UserCtrl);
+        .controller('ProfileCtrl', ProfileCtrl);
 
-    UserCtrl.$inject = ['$routeParams', 'userData', 'logger'];
+    ProfileCtrl.$inject = ['$routeParams', '$location', 'userData', 'identity', 'logger'];
 
-    function UserCtrl($routeParams, userData, logger) {
+    function ProfileCtrl($routeParams, $location, userData, identity, logger) {
         var vm = this;
 
         vm.getUser = getUser;
@@ -31,7 +31,8 @@
         }
 
         function onGetUserFailed(error) {
-            logger.error(error);
+            logger.error(error.message);
+            $location.path('user/list');
         }
     }
 

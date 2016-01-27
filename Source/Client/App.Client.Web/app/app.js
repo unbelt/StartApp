@@ -12,7 +12,7 @@
         .constant('appSettings', settings());
 
     config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope', '$location'];
+    run.$inject = ['$rootScope', '$location', 'identity'];
 
     angular.module('templates', []);
     angular.module('app.data', []);
@@ -55,18 +55,6 @@
             })
 
             // USER
-            .when('/user/all', {
-                templateUrl: '/app/user/user-list.html',
-                controller: 'UserListCtrl',
-                controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'All Users'
-            })
-            .when('/user/get/:id', {
-                templateUrl: '/app/user/user.html',
-                controller: 'UserCtrl',
-                controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'User Profile'
-            })
             .when('/user/login', {
                 templateUrl: '/app/user/login.html',
                 controller: 'LoginCtrl',
@@ -79,6 +67,19 @@
                 controllerAs: CONTROLLER_VIEW_MODEL,
                 title: 'Register'
             })
+            .when('/user/profile/:id', {
+                templateUrl: '/app/user/profile.html',
+                controller: 'ProfileCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'User Profile',
+                secure: true
+            })
+            .when('/user/list', {
+                templateUrl: '/app/user/user-list.html',
+                controller: 'UserListCtrl',
+                controllerAs: CONTROLLER_VIEW_MODEL,
+                title: 'All Users'
+            })
 
             // 404
             .otherwise({
@@ -88,15 +89,19 @@
             });
     }
 
-    function run($rootScope, $location) {
+    function run($rootScope, $location, identity) {
         $rootScope.$on('$routeChangeSuccess', function routeChangeSuccess(event, current, previous) {
             if (current.hasOwnProperty('$$route')) {
                 $rootScope.title = current.$$route.title;
             }
         });
 
-        $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, current, previous) {
-            // TODO: Run on route start
+        $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, next, previous) {
+            if (next && next.$$route && next.$$route.secure) {
+                if (!identity.isAuthenticated()) {
+                    $location.path('/user/login');
+                }
+            }
         });
     }
 
