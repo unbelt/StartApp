@@ -17,6 +17,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Testing;
 
     public class AccountController : BaseController
     {
@@ -33,7 +34,7 @@
         [HttpGet]
         public async Task<IHttpActionResult> GetAll()
         {
-            var users = await base.UserManager.Users.ToListAsync();
+            var users = await UserManager.Users.ToListAsync();
             var response = this.mappingService.Map<IList<UserResponseModel>>(users);
 
             if (!response.Any())
@@ -48,7 +49,7 @@
         [HttpGet]
         public async Task<IHttpActionResult> Get(string username)
         {
-            var user = await base.UserManager.FindByNameAsync(username);
+            var user = await UserManager.FindByNameAsync(username);
 
             if (user == null)
             {
@@ -64,16 +65,33 @@
         [HttpPost]
         public async Task<IHttpActionResult> Login(LoginBindingModel model)
         {
-            var user = await base.UserManager.FindAsync(model.UserName, model.Password);
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            var user = UserManager.FindAsync(model.UserName, model.Password);
 
             if (user == null)
             {
                 return this.BadRequest("Wrong username or password!");
             }
 
-            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+            // Invoke the "token" OWIN service to perform the login (POST /api/token)
+            var testServer = TestServer.Create<Startup>();
+            var requestParams = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", model.UserName),
+                new KeyValuePair<string, string>("password", model.Password)
+            };
 
-            return this.Ok(responseModel);
+            var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+
+            var tokenServiceResponse = await testServer.HttpClient
+                .PostAsync(Common.Constants.TokenEndpointPath, requestParamsFormUrlEncoded);
+
+            return this.ResponseMessage(tokenServiceResponse);
         }
 
         // POST api/Account/Register
@@ -86,16 +104,17 @@
             }
 
             var user = this.mappingService.Map<User>(model);
-            var result = await base.UserManager.CreateAsync(user, model.Password);
+            var result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 return this.GetErrorResult(result);
             }
 
-            var responseModel = this.mappingService.Map<UserResponseModel>(user);
+            var loginBindingModel =  this.mappingService.Map<LoginBindingModel>(model);
+            var loginResult = await this.Login(loginBindingModel);
 
-            return this.Ok(responseModel);
+            return this.Ok(loginResult);
         }
 
         // POST api/Account/Logout
@@ -117,7 +136,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            var result = await base.UserManager
+            var result = await UserManager
                 .ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)
@@ -138,7 +157,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            var result = await base.UserManager
+            var result = await UserManager
                 .AddPasswordAsync(this.User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
@@ -187,7 +206,7 @@
 
         private static class RandomOAuthStateGenerator
         {
-            private static readonly RandomNumberGenerator random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator Random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
@@ -201,7 +220,7 @@
                 int strengthInBytes = strengthInBits / BitsPerByte;
 
                 byte[] data = new byte[strengthInBytes];
-                random.GetBytes(data);
+                Random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }

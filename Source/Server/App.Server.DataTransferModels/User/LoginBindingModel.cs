@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class LoginBindingModel
+    using App.Server.Common.Mapping;
+
+    public class LoginBindingModel : IMapFrom<RegisterBindingModel>
     {
         [Required]
         [Display(Name = "User Name")]

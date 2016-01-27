@@ -5,7 +5,6 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using App.Data.Models;
     using App.Server.Api.Config;
 
     using Microsoft.AspNet.Identity.Owin;
@@ -29,7 +28,7 @@
 
         public static AuthenticationProperties CreateProperties(string userName)
         {
-            IDictionary<string, string> data = new Dictionary<string, string>
+            var data = new Dictionary<string, string>
             {
                 { "userName", userName }
             };
@@ -49,8 +48,8 @@
                 return;
             }
 
-            var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
-            var cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
 
             var properties = CreateProperties(user.UserName);
             var ticket = new AuthenticationTicket(oAuthIdentity, properties);

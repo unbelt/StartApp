@@ -9,5 +9,6 @@
         public const string LogicServicesAssembly = "App.Services.Logic";
 
         public const string LocalLoginProvider = "Local";
+        public const string TokenEndpointPath = "/api/Token";
     }
 }

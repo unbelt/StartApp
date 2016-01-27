@@ -24,6 +24,9 @@
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { controller = "Entity", action = "GetAll", id = RouteParameter.Optional });
 
+            // Disable the XML media formatter (because it cannot serialize anonymous types)
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
             // JSON Formatters
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter());
