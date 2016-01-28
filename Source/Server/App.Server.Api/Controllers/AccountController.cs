@@ -119,7 +119,7 @@
             var loginBindingModel =  this.mappingService.Map<LoginBindingModel>(model);
             var loginResult = await this.Login(loginBindingModel);
 
-            return this.Ok(loginResult);
+            return loginResult;
         }
 
         // POST api/Account/Logout

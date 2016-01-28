@@ -7,9 +7,9 @@
     angular.module('app.controllers')
         .controller('RegisterCtrl', RegisterCtrl);
 
-    RegisterCtrl.$inject = ['$location', 'userData', 'logger'];
+    RegisterCtrl.$inject = ['$location', 'userData', 'identity', 'logger'];
 
-    function RegisterCtrl($location, userData, logger) {
+    function RegisterCtrl($location, userData, identity, logger) {
         var vm = this;
 
         vm.register = register;
@@ -24,9 +24,9 @@
         // PRIVATE FUNCTIONS
 
         function onRegisterSuccess(response) {
-            // TODO: Implement
-            $location.path('/');
+            identity.setCurrentUser(response);
             logger.log(response);
+            $location.path('/');
         }
 
         function onRegisterFailed(error) {
