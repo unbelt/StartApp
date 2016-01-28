@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/***********************
+ * App Nav Directive
+ ***********************/
+(function () {
     'use strict';
 
     angular.module('app.directives')

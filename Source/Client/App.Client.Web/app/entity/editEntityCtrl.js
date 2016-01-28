@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/*************************
+ * Edit Entity Controller
+ *************************/
+(function () {
     'use strict';
 
     angular.module('app.controllers')

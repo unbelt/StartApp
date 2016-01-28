@@ -116,7 +116,7 @@
                 return this.GetErrorResult(result);
             }
 
-            var loginBindingModel =  this.mappingService.Map<LoginBindingModel>(model);
+            var loginBindingModel = this.mappingService.Map<LoginBindingModel>(model);
             var loginResult = await this.Login(loginBindingModel);
 
             return loginResult;

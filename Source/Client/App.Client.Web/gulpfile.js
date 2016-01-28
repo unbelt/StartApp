@@ -34,7 +34,7 @@ var config = {
         'content/toastr.css'
     ],
     appJsSrc: ['app/**/*.js', '!app/build/*'],
-    appCssSrc: ['content/styles.css'],
+    appCssSrc: ['css/styles.css'],
     appTemplatesHtml: 'app/views/*.html',
     appIndexHtml: 'index-template.html'
 }

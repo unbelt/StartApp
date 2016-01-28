@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="app">
 <head>
     <base href="/">
-    <title>{{ title }} | App</title>
+    <title data-ng-bind="title + ' | App'">App</title>
 
     <!-- inject:css -->
     <!-- endinject -->
@@ -10,11 +10,13 @@
 </head>
 <body data-ng-controller="MainCtrl as vm" data-ng-cloak>
 
+    <div class="spinner" data-ng-show="loading"></div>
+
     <nav data-app-nav class="navbar-default"></nav>
 
     <div class="container-fluid" data-ng-view></div>
 
-    <footer data-app-footer></footer>
+    <footer class="modal-footer" data-app-footer></footer>
 
     <!-- inject:vendors:js -->
     <!-- endinject -->

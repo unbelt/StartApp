@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/**********************
+ * Entity Data Service
+ **********************/
+(function () {
     'use strict';
 
     angular.module('app.data')

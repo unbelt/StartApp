@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/***********************
+ * App Footer Directive
+ ***********************/
+(function () {
     'use strict';
 
     angular.module('app.directives')

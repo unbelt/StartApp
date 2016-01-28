@@ -90,17 +90,23 @@
     }
 
     function run($rootScope, $location, identity) {
+        $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, next, previous) {
+            if (next && next.$$route && next.$$route.secure) {
+                if (!identity.isAuthenticated()) {
+                    $location.path('/user/login');
+                }
+            }
+        });
+
         $rootScope.$on('$routeChangeSuccess', function routeChangeSuccess(event, current, previous) {
             if (current.hasOwnProperty('$$route')) {
                 $rootScope.title = current.$$route.title;
             }
         });
 
-        $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, next, previous) {
-            if (next && next.$$route && next.$$route.secure) {
-                if (!identity.isAuthenticated()) {
-                    $location.path('/user/login');
-                }
+        $rootScope.$on('$routeChangeError', function routeChangeError(event, current, previous) {
+            if (current.hasOwnProperty('$$route')) {
+                // TODO: Implement
             }
         });
     }
