@@ -34,13 +34,15 @@ namespace App.Data.Migrations
                 {
                     UserName = "admin",
                     Email = "admin@app.com",
-                    PasswordHash = password
+                    PasswordHash = password,
+                    SecurityStamp = "pass"
                 },
                 new User
                 {
                     UserName = "user",
                     Email = "user@app.com",
-                    PasswordHash = password
+                    PasswordHash = password,
+                    SecurityStamp = "pass"
                 }
             };
 
