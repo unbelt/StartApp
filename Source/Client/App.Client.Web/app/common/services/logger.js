@@ -33,7 +33,7 @@
 
         function warning(message, data, title) {
             toastr.warning(message, title);
-            $log.warning('Warning: ' + message, data);
+            $log.warn('Warning: ' + message, data);
         }
 
         function info(message, data, title) {

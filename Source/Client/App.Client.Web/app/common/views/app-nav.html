@@ -21,7 +21,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ vm.currentUser().userName || 'Guest' }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" data-ng-show="vm.isAuthenticated()">
                     <li><a href="user/profile/{{ vm.currentUser().userName }}">Profile</a></li>
-                    <li><a href="/" data-ng-click="vm.logout()">Logout</a></li>
+                    <li><a href="#" data-ng-click="vm.logout()">Logout</a></li>
                 </ul>
                 <ul class="dropdown-menu" data-ng-hide="vm.isAuthenticated()">
                     <li><a href="user/login">Login</a></li>

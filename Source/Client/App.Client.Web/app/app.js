@@ -12,7 +12,7 @@
         .constant('appSettings', settings());
 
     config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope', '$location', 'identity'];
+    run.$inject = ['$rootScope', '$location', '$window', 'identity', 'logger'];
 
     angular.module('templates', []);
     angular.module('app.data', []);
@@ -45,7 +45,8 @@
                 templateUrl: '/app/entity/add-entity.html',
                 controller: 'AddEntityCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'Add Entity'
+                title: 'Add Entity',
+                secure: true
             })
             .when('/entity/edit/:id', {
                 templateUrl: '/app/entity/edit-entity.html',
@@ -59,13 +60,15 @@
                 templateUrl: '/app/user/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'Login'
+                title: 'Login',
+                guest: true
             })
             .when('/user/register', {
                 templateUrl: '/app/user/register.html',
                 controller: 'RegisterCtrl',
                 controllerAs: CONTROLLER_VIEW_MODEL,
-                title: 'Register'
+                title: 'Register',
+                guest: true
             })
             .when('/user/profile/:id', {
                 templateUrl: '/app/user/profile.html',
@@ -89,11 +92,17 @@
             });
     }
 
-    function run($rootScope, $location, identity) {
+    function run($rootScope, $location, $window, identity, logger) {
         $rootScope.$on('$routeChangeStart', function routeChangeSuccess(event, next, previous) {
-            if (next && next.$$route && next.$$route.secure) {
-                if (!identity.isAuthenticated()) {
+            if (next && next.$$route) {
+                if (next.$$route.secure && !identity.isAuthenticated()) {
                     $location.path('/user/login');
+                    logger.warning('You need to be logged in!');
+                }
+
+                if (next.$$route.guest && identity.isAuthenticated()) {
+                    $window.history.back();
+                    logger.info('You are already logged in!');
                 }
             }
         });

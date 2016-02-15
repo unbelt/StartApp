@@ -7,9 +7,9 @@
     angular.module('app.controllers')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$location', 'userData', 'identity', 'logger'];
+    LoginCtrl.$inject = ['$location', '$window', 'userData', 'identity', 'logger'];
 
-    function LoginCtrl($location, userData, identity, logger) {
+    function LoginCtrl($location, $window, userData, identity, logger) {
         var vm = this;
 
         vm.login = login;
@@ -26,7 +26,7 @@
         function onLoginSuccess(response) {
             identity.setCurrentUser(response);
             logger.log(response);
-            $location.path('/');
+            $window.history.back();
         }
 
         function onLoginFailed(error) {
