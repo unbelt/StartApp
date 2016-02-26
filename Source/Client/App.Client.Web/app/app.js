@@ -11,17 +11,19 @@
         .value('toastr', toastr)
         .constant('appSettings', settings());
 
-    config.$inject = ['$locationProvider', '$routeProvider'];
-    run.$inject = ['$rootScope', '$location', '$window', 'identity', 'logger'];
-
     angular.module('templates', []);
     angular.module('app.data', []);
     angular.module('app.services', []);
     angular.module('app.controllers', ['app.data', 'app.services']);
     angular.module('app.directives', []);
 
-    function config($locationProvider, $routeProvider) {
+    config.$inject = ['$httpProvider', '$locationProvider', '$routeProvider'];
+    run.$inject = ['$rootScope', '$location', '$window', 'identity', 'logger'];
+
+    function config($httpProvider, $locationProvider, $routeProvider) {
         var CONTROLLER_VIEW_MODEL = 'vm';
+
+        $httpProvider.interceptors.push('httpResponseInterceptor');
 
         $locationProvider.html5Mode(true).hashPrefix('!');
 

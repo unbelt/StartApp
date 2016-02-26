@@ -16,29 +16,39 @@
             error: error,
             warning: warning,
             info: info,
-            log: $log.log
+            log: $log.log,
+            print: print
         };
 
         return service;
 
         function success(message, data, title) {
-            toastr.success(message, title);
-            $log.log('Success: ' + message, data);
+            print(message, data, title, 'success', 'log');
         }
 
         function error(message, data, title) {
-            toastr.error(message, title);
-            $log.error('Error: ' + message, data);
+            print(message, data, title, 'error', 'error');
         }
 
         function warning(message, data, title) {
-            toastr.warning(message, title);
-            $log.warn('Warning: ' + message, data);
+            print(message, data, title, 'warning', 'warn');
         }
 
         function info(message, data, title) {
-            toastr.info(message, title);
-            $log.info('Info: ' + message, data);
+            print(message, data, title, 'info', 'info');
+        }
+
+        function print(message, data, title, toastrType, logType) {
+            if (message) {
+
+                if (toastrType) {
+                    toastr[toastrType](message, title);
+                }
+
+                if (logType) {
+                    $log[logType](logType.toUpperCase() + ': ' + (title || message), data || '');
+                }
+            }
         }
     }
 

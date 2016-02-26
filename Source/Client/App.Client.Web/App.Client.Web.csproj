@@ -47,6 +47,7 @@
     <Content Include="app\common\controllers\mainCtrl.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
+    <Content Include="app\common\services\httpResponseInterceptor.js" />
     <Content Include="app\common\services\identity.js" />
     <Content Include="app\common\services\baseData.js" />
     <Content Include="app\common\services\cookieStorage.js" />
