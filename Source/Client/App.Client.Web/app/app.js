@@ -113,6 +113,21 @@
             if (current.hasOwnProperty('$$route')) {
                 $rootScope.title = current.$$route.title;
             }
+
+            var timeout = setTimeout(setLinksTarget);
+
+            function setLinksTarget() {
+                var links = document.getElementsByTagName('a');
+
+                // target _blank to all external links
+                [].forEach.call(links, function (link) {
+                    if (link.hostname !== location.hostname) {
+                        link.setAttribute('target', '_blank');
+                    }
+                });
+
+                clearTimeout(timeout);
+            }
         });
 
         $rootScope.$on('$routeChangeError', function routeChangeError(event, current, previous) {

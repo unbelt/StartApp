@@ -80,11 +80,10 @@
     <Content Include="content\bootstrap.min.css" />
     <Content Include="content\toastr.css" />
     <Content Include="content\toastr.min.css" />
-    <Content Include="css\styles.css" />
+    <Content Include="content\styles.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="gulpfile.js" />
     <Content Include="index-template.html" />
-    <Content Include="js\scripts.js" />
     <Content Include="package.json" />
     <Content Include="packages.config" />
     <Content Include="content\toastr.scss" />
