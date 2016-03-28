@@ -1,1 +1,1 @@
-gulp watch
+gulp watch #--env=prod

@@ -16,7 +16,7 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNet.Identity.Owin;
 
-    [AllowAnonymous] // TODO: For testing porpouse only!
+    [AllowAnonymous] // TODO: For testing purpose only!
     public class EntityController : BaseController
     {
         private readonly IMappingService mappingService;

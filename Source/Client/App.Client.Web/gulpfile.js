@@ -1,6 +1,6 @@
 ﻿// Include plug-ins
 var argv = require('yargs').argv,
-    isProduction = argv.env === 'production',
+    isProduction = argv.env === 'prod',
     gulp = require('gulp'),
     gulpIf = require('gulp-if'),
 	jshint = require('gulp-jshint'),
@@ -26,7 +26,8 @@ var config = {
         'Scripts/angular.js',
         'Scripts/angular-route.js',
         'Scripts/angular-cookies.js',
-        'Scripts/angular-animate.js'
+        'Scripts/angular-animate.js',
+        'Scripts/ckeditor.js'
     ],
     vendorCssSrc: [
         'content/bootstrap.css',
