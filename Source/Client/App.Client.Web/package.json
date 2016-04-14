@@ -1,25 +1,25 @@
 {
-    "name": "App.Client.Web",
-    "version": "1.0.0",
-    "repository": { },
-    "license": "MIT",
-    "description": "StartApp Web Client",
-    "devDependencies": {
-        "yargs":  "^3.26.0",
-        "gulp": "^3.9.0",
-        "gulp-concat": "^2.6.0",
-        "gulp-uglify": "^1.2.0",
-        "del": "^1.2.0",
-        "gulp-jshint": "^1.11.2",
-        "gulp-minify-css": "^1.2.0",
-        "gulp-autoprefixer": "^2.3.1",
-        "gulp-inject": "^1.3.1",
-        "gulp-rename": "^1.2.2",
-        "gulp-angular-filesort": "^1.1.1",
-        "gulp-replace": "^0.5.3",
-        "gulp-minify-html": "^1.0.3",
-        "gulp-if": "^1.2.5",
-        "gulp-angular-templatecache": "^1.7.0",
-        "add-stream": "^1.0.0"
-    }
+  "name": "App.Client.Web",
+  "version": "1.0.0",
+  "repository": { },
+  "license": "MIT",
+  "description": "StartApp Web Client",
+  "devDependencies": {
+    "add-stream": "^1.0.0",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^1.2.5",
+    "gulp-inject": "^1.3.1",
+    "gulp-jshint": "^1.11.2",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-minify-html": "^1.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
+    "gulp-uglify": "^1.2.0",
+    "yargs": "^3.26.0"
+  }
 }

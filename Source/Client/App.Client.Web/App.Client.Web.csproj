@@ -20,6 +20,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\assets\css\main.css" />
+    <Content Include="app\assets\img\favicon.ico" />
     <Content Include="app\common\controllers\mainCtrl.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
