@@ -1,4 +1,5 @@
-﻿// Include plug-ins
+/// <binding ProjectOpened='watch' />
+// Include plug-ins
 var argv = require('yargs').argv,
     isProduction = argv.env === 'prod',
     gulp = require('gulp'),
