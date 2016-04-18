@@ -46,8 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\assets\css\main.css" />
-    <Content Include="app\assets\img\favicon.ico" />
+    <Content Include="app\assets\images\favicon.ico" />
     <Content Include="app\common\controllers\mainCtrl.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
@@ -84,7 +83,6 @@
     <Content Include="content\bootstrap.min.css" />
     <Content Include="content\toastr.css" />
     <Content Include="content\toastr.min.css" />
-    <Content Include="content\styles.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="gulpfile.js" />
     <Content Include="index-template.html" />
@@ -1234,6 +1232,7 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-message-format.min.js.map" />
     <Content Include="Scripts\ckeditor\ckeditor.pack" />
+    <Content Include="app\assets\styles\main.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

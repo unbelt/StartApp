@@ -2,20 +2,24 @@
 // Include plug-ins
 var argv = require('yargs').argv,
     isProduction = argv.env === 'prod',
-    gulp = require('gulp'),
-    gulpIf = require('gulp-if'),
-	jshint = require('gulp-jshint'),
-	concat = require('gulp-concat'),
-	minifyCSS = require('gulp-minify-css'),
-	autoprefixer = require('gulp-autoprefixer'),
-	uglify = require('gulp-uglify'),
-	rename = require('gulp-rename'),
-	inject = require('gulp-inject'),
-	minifyHTML = require('gulp-minify-html'),
-	del = require('del'),
     addStream = require('add-stream'),
+    del = require('del'),
+    gulp = require('gulp'),
 	angularFilesort = require('gulp-angular-filesort'),
-	angularTemplateCache = require('gulp-angular-templatecache');
+	angularTemplateCache = require('gulp-angular-templatecache'),
+	autoprefixer = require('gulp-autoprefixer'),
+	concat = require('gulp-concat'),
+    gulpIf = require('gulp-if'),
+	inject = require('gulp-inject'),
+	jshint = require('gulp-jshint'),
+    less = require('gulp-less'),
+    livereload = require('gulp-livereload'),
+	minifyCSS = require('gulp-minify-css'),
+    minifyHTML = require('gulp-minify-html'),
+	rename = require('gulp-rename'),
+	uglify = require('gulp-uglify');
+
+
 
 // File paths
 var config = {
@@ -36,42 +40,43 @@ var config = {
         'content/toastr.css'
     ],
     appJsSrc: ['app/**/*.js', '!app/build/*'],
-    appCssSrc: ['app/**/*.css', '!app/build/*'],
+    appLessSrc: ['app/**/*.less', '!app/build/*'],
     appTemplatesHtml: 'app/views/*.html',
     appIndexHtml: 'index-template.html'
 }
 
+
 // For browser caching
-var getStamp = function () {
-    var myDate = new Date();
-
-    var myYear = myDate.getFullYear().toString();
-    var myMonth = ('0' + (myDate.getMonth() + 1)).slice(-2);
-    var myDay = ('0' + myDate.getDate()).slice(-2);
-    var mySeconds = myDate.getSeconds().toString();
-
-    var myFullDate = myYear + myMonth + myDay + mySeconds;
+function getStamp() {
+    var myDate = new Date(),
+        myYear = myDate.getFullYear().toString(),
+        myMonth = ('0' + (myDate.getMonth() + 1)).slice(-2),
+        myDay = ('0' + myDate.getDate()).slice(-2),
+        mySeconds = myDate.getSeconds().toString(),
+        myFullDate = myYear + myMonth + myDay + mySeconds;
 
     return myFullDate;
 };
 
 // For angular templates
-var prepareTemplates = function () {
+function prepareTemplates() {
     return gulp.src(config.appTemplatesHtml)
         .pipe(angularTemplateCache());
 };
 
 // Minify, prefix and concatenate CSS
-gulp.task('css', function () {
+gulp.task('styles', function () {
     del.sync(['app/build/css*']);
 
-    var css = config.vendorCssSrc.concat(config.appCssSrc);
+    var styles = config.vendorCssSrc.concat(config.appLessSrc);
 
-    return gulp.src(css)
+    return gulp.src(styles)
+        .pipe(less())
         .pipe(gulpIf(isProduction, minifyCSS()))
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
-        .pipe(concat('css' + (isProduction ? getStamp() : '') + '.min.css', { newLine: '' }))
-        .pipe(gulp.dest('app/build'));
+        .pipe(concat('css' + (isProduction ? getStamp() + '.min' : '') + '.css', { newLine: '' }))
+        .pipe(gulp.dest('app/build'))
+        .pipe(livereload());
 });
 
 // Lint Task
@@ -87,7 +92,7 @@ gulp.task('vendors', function () {
 
     return gulp.src(config.vendorJsSrc)
 		.pipe(gulpIf(isProduction, uglify()))
-		.pipe(concat('vendorjs' + (isProduction ? getStamp() : '') + '.min.js', { newLine: '' }))
+		.pipe(concat('vendorjs' + (isProduction ? getStamp() + '.min' : '') + '.js', { newLine: '' }))
 		.pipe(gulp.dest('app/build'));
 });
 
@@ -99,16 +104,18 @@ gulp.task('scripts', function () {
 		.pipe(angularFilesort())
 		.pipe(gulpIf(isProduction, uglify()))
         .pipe(addStream.obj(prepareTemplates()))
-		.pipe(concat('js' + (isProduction ? getStamp() : '') + '.min.js', { newLine: '' }))
-		.pipe(gulp.dest('app/build'));
+		.pipe(concat('js' + (isProduction ? getStamp() + '.min' : '') + '.js', { newLine: '' }))
+		.pipe(gulp.dest('app/build'))
+        .pipe(livereload());
 });
 
 // Inject minified files into new HTML
-gulp.task('html', ['css', 'scripts'], function () {
+gulp.task('html', ['styles', 'scripts'], function () {
     del.sync(['index.html']);
-    var target = gulp.src(config.appIndexHtml);
-    var vendorSources = gulp.src(['app/build/vendorjs*'], { read: false });
-    var appSources = gulp.src(['app/build/js*', 'app/build/css*'], { read: false });
+
+    var target = gulp.src(config.appIndexHtml),
+        vendorSources = gulp.src(['app/build/vendorjs*'], { read: false }),
+        appSources = gulp.src(['app/build/js*', 'app/build/css*'], { read: false });
 
     return target
         .pipe(inject(vendorSources, { starttag: '<!-- inject:vendors:{{ext}} -->' }))
@@ -119,12 +126,14 @@ gulp.task('html', ['css', 'scripts'], function () {
 });
 
 // Watch for changes
-gulp.task('watch', ['lint', 'css', 'vendors', 'scripts', 'html'], function () {
-    gulp.watch(config.appCssSrc, ['css', 'html']);
+gulp.task('watch', ['lint', 'styles', 'vendors', 'scripts', 'html'], function () {
+    livereload.listen();
+
+    gulp.watch(config.appLessSrc, ['styles', 'html']);
     gulp.watch(config.appJsSrc, ['lint', 'scripts', 'html']);
     gulp.watch(config.appTemplatesHtml, ['lint', 'scripts', 'html']);
     gulp.watch(config.appIndexHtml, ['html']);
 });
 
 // Set default tasks
-gulp.task('default', ['lint', 'css', 'vendors', 'scripts', 'html'], function () { });
+gulp.task('default', ['lint', 'styles', 'vendors', 'scripts', 'html'], function () { });
