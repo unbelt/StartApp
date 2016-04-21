@@ -20,11 +20,10 @@ var argv = require('yargs').argv,
 	uglify = require('gulp-uglify');
 
 
-
 // File paths
 var config = {
     vendorJsSrc: [
-        'Scripts/jquery-2.2.0.js',
+        'Scripts/jquery-2.2.3.js',
         'Scripts/bootstrap.js',
         'Scripts/toastr.js',
         'Scripts/scripts.js',
@@ -32,7 +31,7 @@ var config = {
         'Scripts/angular-route.js',
         'Scripts/angular-cookies.js',
         'Scripts/angular-animate.js',
-        'Scripts/ckeditor.js'
+        'Scripts/ckeditor/ckeditor.js'
     ],
     vendorCssSrc: [
         'content/bootstrap.css',

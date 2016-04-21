@@ -24,7 +24,6 @@
         var CONTROLLER_VIEW_MODEL = 'vm';
 
         $httpProvider.interceptors.push('httpResponseInterceptor');
-
         $locationProvider.html5Mode(true).hashPrefix('!');
 
         $routeProvider
