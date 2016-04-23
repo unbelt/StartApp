@@ -7,23 +7,26 @@
     angular.module('app.data')
         .factory('data', baseData);
 
-    baseData.$inject = ['$http', '$q', 'appSettings'];
+    baseData.$inject = ['$http', '$q', 'identity', 'appSettings'];
 
-    function baseData($http, $q, appSettings) {
+    function baseData($http, $q, identity, appSettings) {
 
         var service = {
             get: get,
             post: post,
             update: update,
             remove: remove
+        },
+
+        headers = {
+            'Content-Type': 'application/json',
         };
 
         return service;
 
         function get(path) {
-            var deferred = $q.defer();
-
-            var url = appSettings.serverPath + path;
+            var deferred = $q.defer(),
+                url = appSettings.serverPath + path;
 
             $http.get(url)
                 .success(function onSuccess(data) {
@@ -37,13 +40,10 @@
         }
 
         function post(path, data) {
-            var deferred = $q.defer();
+            var deferred = $q.defer(),
+                url = appSettings.serverPath + path;
 
-            var url = appSettings.serverPath + path;
-
-            var headers = {
-                'Content-Type': 'application/json'
-            };
+            headers.Authorization = identity.getAuthorization();
 
             $http.post(url, data, headers)
                 .success(function onSuccess(data) {
@@ -57,13 +57,8 @@
         }
 
         function update(path, data) {
-            var deferred = $q.defer();
-
-            var url = appSettings.serverPath + path;
-
-            var headers = {
-                'Content-Type': 'application/json'
-            };
+            var deferred = $q.defer(),
+                url = appSettings.serverPath + path;
 
             $http.patch(url, data, headers)
                 .success(function onSuccess(data) {
@@ -77,9 +72,8 @@
         }
 
         function remove(path) {
-            var deferred = $q.defer();
-
-            var url = appSettings.serverPath + path;
+            var deferred = $q.defer(),
+                url = appSettings.serverPath + path;
 
             $http.delete(url)
                 .success(function onSuccess(data) {

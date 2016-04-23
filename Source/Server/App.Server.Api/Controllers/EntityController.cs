@@ -63,12 +63,14 @@
         [HttpPost]
         public async Task<IHttpActionResult> Post(EntityRequestModel requestModel)
         {
-            var user = await UserManager.FindByIdAsync(requestModel.UserId);
+            var user = await UserManager.FindByNameAsync(requestModel.UserId);
 
             if (user == null)
             {
                 return this.BadRequest("User not found!");
             }
+
+            requestModel.UserId = user.Id;
 
             if (requestModel.DateCreated == null)
             {

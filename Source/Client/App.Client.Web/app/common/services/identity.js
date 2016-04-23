@@ -15,7 +15,7 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             removeCurrentUser: removeCurrentUser,
-            getAuthorizationHeaders: getAuthorizationHeaders,
+            getAuthorization: getAuthorization,
             isAuthenticated: isAuthenticated
         };
 
@@ -34,11 +34,11 @@
             cookieStorage.removeCookie('currentUser');
         }
 
-        function getAuthorizationHeaders() {
-            if (getCurrentUser()) {
-                return {
-                    'Authorization': 'Bearer ' + getCurrentUser()
-                };
+        function getAuthorization() {
+            var currentUser = getCurrentUser();
+
+            if (currentUser) {
+                return currentUser.token_type + ' ' + currentUser.access_token;
             }
         }
 

@@ -7,16 +7,17 @@
     angular.module('app.controllers')
         .controller('AddEntityCtrl', AddEntityCtrl);
 
-    AddEntityCtrl.$inject = ['$location', 'entityData', 'logger'];
+    AddEntityCtrl.$inject = ['$location', 'entityData', 'identity', 'logger'];
 
-    function AddEntityCtrl($location, entityData, logger) {
+    function AddEntityCtrl($location, entityData, identity, logger) {
         var vm = this;
 
         vm.addEntity = addEntity;
 
-
         function addEntity(entity) {
-            entity.userId = '9274425f-805b-46d7-adb5-e8a03ec6729d'; // TODO: For testing porpoise
+            var currentUser = identity.getCurrentUser();
+
+            entity.userId = currentUser.userName;
 
             entityData.addEntity(entity)
                 .then(onAddSuccess, onAddFailed);

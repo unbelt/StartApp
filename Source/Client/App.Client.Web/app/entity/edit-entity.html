@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="content"></label>
-            <input type="text" id="content" class="form-control" placeholder="Content" data-ng-model="vm.entity.content" />
+            <textarea data-app-editor id="content" cols="80" rows="10" data-ng-model="vm.entity.content" data-ng-init="vm.entity.content"></textarea>
         </div>
         <div class="form-group">
             <input type="submit" value="Back" class="btn btn-default" onclick="window.history.back()" />
