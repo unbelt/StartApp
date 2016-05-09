@@ -15,6 +15,12 @@
         };
 
         function editor(scope, elm, attr, ngModel) {
+            var ckinstance = CKEDITOR.instances.content;
+
+            if (ckinstance) {
+                ckinstance.destroy(true);
+            }
+
             var ck = CKEDITOR.replace(elm[0]);
 
             if (!ngModel) {

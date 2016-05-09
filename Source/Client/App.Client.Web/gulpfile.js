@@ -25,13 +25,12 @@ var config = {
     vendorJsSrc: [
         'Scripts/jquery-2.2.3.js',
         'Scripts/bootstrap.js',
+        'Scripts/ckeditor/ckeditor.js',
         'Scripts/toastr.js',
-        'Scripts/scripts.js',
         'Scripts/angular.js',
         'Scripts/angular-route.js',
         'Scripts/angular-cookies.js',
-        'Scripts/angular-animate.js',
-        'Scripts/ckeditor/ckeditor.js'
+        'Scripts/angular-animate.js'
     ],
     vendorCssSrc: [
         'content/bootstrap.css',
