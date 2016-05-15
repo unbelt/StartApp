@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('app', ['ngRoute', 'ngCookies', 'app.controllers', 'app.directives'])
+    angular.module('app', ['ngRoute', 'ngCookies', 'app.controllers', 'app.directives', 'app.filters'])
         .config(config)
         .run(run)
         .value('jQuery', jQuery)
@@ -16,6 +16,7 @@
     angular.module('app.services', []);
     angular.module('app.controllers', ['app.data', 'app.services']);
     angular.module('app.directives', []);
+    angular.module('app.filters', []);
 
     config.$inject = ['$httpProvider', '$locationProvider', '$routeProvider'];
     run.$inject = ['$rootScope', '$location', '$window', 'identity', 'logger'];

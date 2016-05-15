@@ -51,6 +51,7 @@
     <Content Include="app\common\directives\appEditor.js" />
     <Content Include="app\common\directives\appFooter.js" />
     <Content Include="app\common\directives\appNav.js" />
+    <Content Include="app\common\filters\unsafeFilter.js" />
     <Content Include="app\common\services\httpResponseInterceptor.js" />
     <Content Include="app\common\services\identity.js" />
     <Content Include="app\common\services\baseData.js" />

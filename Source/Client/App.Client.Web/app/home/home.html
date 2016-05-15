@@ -3,7 +3,7 @@
 
     <div data-ng-repeat="entity in vm.entities | orderBy: '-dateCreated'">
         <h3><a data-ng-click="vm.getEntity(entity.id)" href="entity/get/{{ entity.id }}">{{ entity.title }}</a></h3>
-        <p>{{ entity.content }}</p>
+        <p data-ng-bind-html="entity.content | unsafe"></p>
         <em>{{ entity.dateCreated | date:'medium' }}</em> from <b>{{ entity.userName }}</b>
         <hr />
     </div>

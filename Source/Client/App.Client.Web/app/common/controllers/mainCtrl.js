@@ -7,9 +7,9 @@
     angular.module('app.controllers')
         .controller('MainCtrl', MainCtrl);
 
-    MainCtrl.$inject = ['$location', '$window', 'identity', 'logger'];
+    MainCtrl.$inject = ['$location', 'identity', 'logger'];
 
-    function MainCtrl($location, $window, identity, logger) {
+    function MainCtrl($location, identity, logger) {
         var vm = this;
 
         vm.isAuthenticated = identity.isAuthenticated;
@@ -20,7 +20,7 @@
         function logout() {
             identity.removeCurrentUser();
             logger.info('You have logged out successfully!');
-            $window.history.back();
+            $location.path('/');
         }
     }
 
