@@ -2,7 +2,7 @@
     <h1>{{ vm.title }}</h1>
 
     <h3>{{ vm.entity.title }}</h3>
-    <p>{{ vm.entity.content }}</p>
+    <p data-ng-bind-html="vm.entity.content | unsafe"></p>
     <em>{{ vm.entity.dateCreated | date:'medium' }}</em> from <b>{{ vm.entity.userName }}</b>
     <hr />
     <a href="entity/edit/{{ vm.entity.id }}" class="btn btn-warning">Edit</a>
