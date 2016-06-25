@@ -1,6 +1,5 @@
 ﻿namespace App.Server.DataTransferModels.Entity
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     using App.Server.Common.Mapping;
@@ -16,7 +15,5 @@
         public string Content { get; set; }
 
         public string UserId { get; set; }
-
-        public DateTime? DateCreated { get; set; }
     }
 }

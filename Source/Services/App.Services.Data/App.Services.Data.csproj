@@ -47,9 +47,12 @@
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="EntityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\App.Data.Common\App.Data.Common.csproj">
+      <Project>{69390a1b-ba5a-4977-bd94-3f808c1029f0}</Project>
+      <Name>App.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\App.Data.Models\App.Data.Models.csproj">
       <Project>{b5b3d816-1163-4fbc-bb37-2e438c69c61b}</Project>
       <Name>App.Data.Models</Name>

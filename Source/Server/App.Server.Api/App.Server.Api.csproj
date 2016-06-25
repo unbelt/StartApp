@@ -233,6 +233,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\App.Data.Common\App.Data.Common.csproj">
+      <Project>{69390A1B-BA5A-4977-BD94-3F808C1029F0}</Project>
+      <Name>App.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\App.Data.Models\App.Data.Models.csproj">
       <Project>{b5b3d816-1163-4fbc-bb37-2e438c69c61b}</Project>
       <Name>App.Data.Models</Name>

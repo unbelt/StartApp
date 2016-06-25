@@ -9,9 +9,9 @@
 
     public class EntityService : IEntityService
     {
-        private readonly IRepository<Entity> entities;
+        private readonly IDbRepository<Entity> entities;
 
-        public EntityService(IRepository<Entity> entities)
+        public EntityService(IDbRepository<Entity> entities)
         {
             this.entities = entities;
         }

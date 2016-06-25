@@ -1,20 +1,16 @@
 ﻿namespace App.Server.Api.Controllers
 {
-    using System;
     using System.Data.Entity;
     using System.Linq;
-    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
 
     using App.Data.Models;
-    using App.Server.Api.Config;
     using App.Server.DataTransferModels.Entity;
     using App.Services.Data.Contracts;
     using App.Services.Logic.Mapping;
 
     using AutoMapper.QueryableExtensions;
-    using Microsoft.AspNet.Identity.Owin;
 
     [AllowAnonymous] // TODO: For testing purpose only!
     public class EntityController : BaseController
@@ -71,11 +67,6 @@
             }
 
             requestModel.UserId = user.Id;
-
-            if (requestModel.DateCreated == null)
-            {
-                requestModel.DateCreated = DateTime.Now.ToLocalTime();
-            }
 
             var entity = this.mappingService.Map<Entity>(requestModel);
             var addedEntity = await this.entityService.AddEntity(entity);

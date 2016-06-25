@@ -6,10 +6,12 @@
     using System.Threading.Tasks;
 
     using App.Data.Common;
+    using App.Data.Models;
 
-    public class Repository<T> : IRepository<T> where T : class
+    public class DbRepository<T> : IDbRepository<T>
+        where T : BaseModel<int>
     {
-        public Repository(DbContext context)
+        public DbRepository(DbContext context)
         {
             if (context == null)
             {
@@ -24,29 +26,52 @@
 
         protected DbContext Context { get; set; }
 
-        public void Add(T entity)
-        {
-            this.ChangeEntityState(entity, EntityState.Added);
-        }
-
-        public void Delete(object id)
-        {
-            this.ChangeEntityState(this.GetById(id), EntityState.Deleted);
-        }
-
-        public void Delete(T entity)
-        {
-            this.ChangeEntityState(entity, EntityState.Deleted);
-        }
-
         public IQueryable<T> GetAll()
         {
-            return this.DbSet.AsQueryable();
+            return this.DbSet.Where(x => !x.IsDeleted).AsQueryable();
+        }
+
+        public IQueryable<T> GetAllWithDeleted()
+        {
+            return this.DbSet;
         }
 
         public T GetById(object id)
         {
             return this.DbSet.Find(id);
+        }
+
+        public void Add(T entity)
+        {
+            this.ChangeEntityState(entity, EntityState.Added);
+        }
+
+        public void Update(T entity)
+        {
+            this.ChangeEntityState(entity, EntityState.Modified);
+        }
+
+        public void Delete(object id)
+        {
+            var entity = this.GetById(id);
+            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.Now;
+        }
+
+        public void Delete(T entity)
+        {
+            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.Now;
+        }
+
+        public void HardDelete(T entity)
+        {
+            this.ChangeEntityState(entity, EntityState.Deleted);
+        }
+
+        public void HardDelete(object id)
+        {
+            this.ChangeEntityState(this.GetById(id), EntityState.Deleted);
         }
 
         public int SaveChanges()
@@ -57,11 +82,6 @@
         public Task<int> SaveChangesAsync()
         {
             return this.Context.SaveChangesAsync();
-        }
-
-        public void Update(T entity)
-        {
-            this.ChangeEntityState(entity, EntityState.Modified);
         }
 
         #region IDisposable Support

@@ -1,6 +1,5 @@
 namespace App.Data.Migrations
 {
-    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -62,15 +61,13 @@ namespace App.Data.Migrations
                 {
                     Title = "Welcome",
                     Content = "Hello world!",
-                    User = context.Users.FirstOrDefault(u => u.UserName == "admin"),
-                    DateCreated = new DateTime(2015, 09, 20)
+                    User = context.Users.FirstOrDefault(u => u.UserName == "admin")
                 },
                 new Entity
                 {
                     Title = "Bye",
                     Content = "Goodbye world!",
-                    User = context.Users.FirstOrDefault(u => u.UserName == "user"),
-                    DateCreated = new DateTime(2015, 09, 25)
+                    User = context.Users.FirstOrDefault(u => u.UserName == "user")
                 }
             };
 

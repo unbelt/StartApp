@@ -4,9 +4,19 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public interface IRepository<T> : IDisposable where T : class
+    using App.Data.Models;
+
+    public interface IDbRepository<T> : IRepository<T, int>
+        where T : BaseModel<int>
+    {
+    }
+
+    public interface IRepository<T, in TKey> : IDisposable
+        where T : BaseModel<TKey>
     {
         IQueryable<T> GetAll();
+
+        IQueryable<T> GetAllWithDeleted();
 
         T GetById(object id);
 
@@ -17,6 +27,10 @@
         void Delete(T entity);
 
         void Delete(object id);
+
+        void HardDelete(T entity);
+
+        void HardDelete(object id);
 
         int SaveChanges();
 

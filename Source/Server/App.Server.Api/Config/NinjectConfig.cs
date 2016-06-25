@@ -40,7 +40,7 @@
 
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
+            kernel.Bind(typeof(IDbRepository<>)).To(typeof(DbRepository<>));
             kernel.Bind<DbContext>().To<AppDbContext>().InRequestScope();
             kernel.Bind<IUserProvider>().To<AspNetUserProvider>();
 
