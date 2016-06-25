@@ -1,22 +1,16 @@
 ﻿namespace App.Server.DataTransferModels.Entity
 {
-    using System;
-
+    using App.Data.Models;
     using App.Server.Common.Mapping;
 
     using AutoMapper;
-
-    public class EntityResponseModel : IMapFrom<Data.Models.Entity>, IHaveCustomMapping
+    public class EntityResponseModel : BaseModel<int>, IMapFrom<Data.Models.Entity>, IHaveCustomMapping
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Content { get; set; }
 
         public string UserName { get; set; }
-
-        public DateTime DateCreated { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {

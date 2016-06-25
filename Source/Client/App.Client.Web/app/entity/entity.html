@@ -3,7 +3,7 @@
 
     <h3>{{ vm.entity.title }}</h3>
     <p data-ng-bind-html="vm.entity.content | unsafe"></p>
-    <em>{{ vm.entity.dateCreated | date:'medium' }}</em> from <b>{{ vm.entity.userName }}</b>
+    <em>{{ vm.entity.createdOn | date:'medium' }}</em> from <b>{{ vm.entity.userName }}</b>
     <hr />
     <a href="entity/edit/{{ vm.entity.id }}" class="btn btn-warning">Edit</a>
     <input type="submit" value="Delete" class="btn btn-danger" data-ng-click="vm.deleteEntity(vm.entity.id)" />

@@ -2,12 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using App.Data.Models;
     using App.Server.Common.Mapping;
 
-    public class EntityRequestModel : IMapFrom<Data.Models.Entity>
+    public class EntityRequestModel : BaseModel<int>, IMapFrom<Entity>
     {
-        public int Id { get; set; }
-
         [Required]
         public string Title { get; set; }
 

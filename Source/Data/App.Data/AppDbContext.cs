@@ -10,6 +10,8 @@
     using System.Linq;
     using Common.Models;
     using System;
+    using System.Threading.Tasks;
+
     public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext()
@@ -29,6 +31,12 @@
         {
             this.ApplyAuditInfoRules();
             return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChangesAsync();
         }
 
         private void ApplyAuditInfoRules()
