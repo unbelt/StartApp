@@ -5,7 +5,7 @@
 
     using App.Data.Models;
 
-    public interface ICategoryService
+    public interface ICategoryService : IService
     {
         IQueryable<Category> GetAllCategories();
 

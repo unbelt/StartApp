@@ -48,7 +48,8 @@
                 .From(
                     Constants.InfrastructureAssembly,
                     Constants.DataServicesAssembly,
-                    Constants.LogicServicesAssembly)
+                    Constants.LogicServicesAssembly,
+                    Constants.WebServicesAssembly)
                 .SelectAllClasses()
                 .InheritedFrom<IService>()
                 .BindDefaultInterface());

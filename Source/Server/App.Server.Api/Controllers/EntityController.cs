@@ -9,7 +9,6 @@
     using App.Server.DataTransferModels.Entity;
     using App.Services.Data.Contracts;
     using App.Services.Logic.Mapping;
-    using App.Services.Web;
 
     using AutoMapper.QueryableExtensions;
 
@@ -19,9 +18,7 @@
         private readonly IMappingService mappingService;
         private readonly IEntityService entityService;
 
-        public EntityController(
-            IMappingService mappingService,
-            IEntityService entityService)
+        public EntityController(IMappingService mappingService, IEntityService entityService)
         {
             this.mappingService = mappingService;
             this.entityService = entityService;

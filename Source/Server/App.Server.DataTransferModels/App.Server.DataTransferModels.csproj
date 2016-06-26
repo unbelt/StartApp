@@ -52,6 +52,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category\CategoryResponseModel.cs" />
     <Compile Include="Entity\EntityRequestModel.cs" />
     <Compile Include="Entity\EntityResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

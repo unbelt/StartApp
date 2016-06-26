@@ -7,6 +7,7 @@
 
         public const string DataServicesAssembly = "App.Services.Data";
         public const string LogicServicesAssembly = "App.Services.Logic";
+        public const string WebServicesAssembly = "App.Services.Web";
 
         public const string LocalLoginProvider = "Local";
         public const string TokenEndpointPath = "/api/Token";
