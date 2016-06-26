@@ -30,6 +30,11 @@
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+        private IAuthenticationManager Authentication
+        {
+            get { return this.Request.GetOwinContext().Authentication; }
+        }
+
         // GET api/Account/GetAll
         [HttpGet]
         public async Task<IHttpActionResult> GetAll()
@@ -174,11 +179,6 @@
         }
 
         #region Helpers
-
-        private IAuthenticationManager Authentication
-        {
-            get { return this.Request.GetOwinContext().Authentication; }
-        }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {

@@ -4,7 +4,8 @@
     using App.Server.Common.Mapping;
 
     using AutoMapper;
-    public class EntityResponseModel : BaseModel<int>, IMapFrom<Data.Models.Entity>, IHaveCustomMapping
+
+    public class EntityResponseModel : BaseModel<int>, IMapFrom<Entity>, IHaveCustomMapping
     {
         public string Title { get; set; }
 
@@ -14,7 +15,7 @@
 
         public void CreateMappings(IConfiguration configuration)
         {
-            configuration.CreateMap<Data.Models.Entity, EntityResponseModel>()
+            configuration.CreateMap<Entity, EntityResponseModel>()
                 .ForMember(u => u.UserName, opt => opt.MapFrom(u => u.User.UserName));
         }
     }

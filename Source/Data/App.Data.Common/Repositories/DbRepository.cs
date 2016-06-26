@@ -11,6 +11,8 @@
     public class DbRepository<T> : IDbRepository<T>
         where T : BaseModel<int>
     {
+        private bool disposedValue = false; // To detect redundant calls
+
         public DbRepository(DbContext context)
         {
             if (context == null)
@@ -85,8 +87,6 @@
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {

@@ -1,16 +1,16 @@
 ﻿namespace App.Data
 {
+    using System;
     using System.Data.Entity;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     using App.Data.Common;
+    using App.Data.Common.Models;
     using App.Data.Migrations;
     using App.Data.Models;
 
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System.Linq;
-    using Common.Models;
-    using System;
-    using System.Threading.Tasks;
 
     public class AppDbContext : IdentityDbContext<User>
     {
