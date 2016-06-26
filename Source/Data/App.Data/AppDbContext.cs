@@ -22,6 +22,8 @@
 
         public virtual IDbSet<Entity> Entities { get; set; }
 
+        public virtual IDbSet<Category> Categories { get; set; }
+
         public static AppDbContext Create()
         {
             return new AppDbContext();

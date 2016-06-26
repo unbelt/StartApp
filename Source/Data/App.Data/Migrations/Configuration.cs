@@ -12,13 +12,15 @@ namespace App.Data.Migrations
     {
         public Configuration()
         {
+            // TODO: Remove in production
             this.AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true; // TODO: Remove in production
+            this.AutomaticMigrationDataLossAllowed = true; 
         }
 
         protected override void Seed(AppDbContext context)
         {
             SeedUsers(context);
+            SeedCategories(context);
             SeedEntities(context);
         }
 
@@ -53,29 +55,52 @@ namespace App.Data.Migrations
             context.SaveChanges();
         }
 
+        private static void SeedCategories(AppDbContext context)
+        {
+            var categories = new List<Category>
+            {
+                new Category
+                {
+                    Name = "Other"
+                }
+            };
+
+            foreach (var category in categories)
+            {
+                if (!context.Categories.Any(x => x.Name == category.Name))
+                {
+                    context.Categories.Add(category);
+                }
+            }
+
+            context.SaveChanges();
+        }
+
         private static void SeedEntities(AppDbContext context)
         {
-            var posts = new List<Entity>
+            var entities = new List<Entity>
             {
                 new Entity
                 {
                     Title = "Welcome",
                     Content = "Hello world!",
+                    Category = context.Categories.FirstOrDefault(c => c.Name == "Other"),
                     User = context.Users.FirstOrDefault(u => u.UserName == "admin")
                 },
                 new Entity
                 {
                     Title = "Bye",
                     Content = "Goodbye world!",
+                    Category = context.Categories.FirstOrDefault(c => c.Name == "Other"),
                     User = context.Users.FirstOrDefault(u => u.UserName == "user")
                 }
             };
 
-            foreach (var post in posts)
+            foreach (var entity in entities)
             {
-                if (!context.Entities.Any(x => x.Title == post.Title))
+                if (!context.Entities.Any(x => x.Title == entity.Title))
                 {
-                    context.Entities.Add(post);
+                    context.Entities.Add(entity);
                 }
             }
         }

@@ -11,11 +11,14 @@
 
         public string Content { get; set; }
 
+        public string Category { get; set; }
+
         public string UserName { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Entity, EntityResponseModel>()
+                .ForMember(c => c.Category, opt => opt.MapFrom(c => c.Category.Name))
                 .ForMember(u => u.UserName, opt => opt.MapFrom(u => u.User.UserName));
         }
     }
