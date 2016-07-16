@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\App.Services.Data\App.Services.Data.csproj">
+    <ProjectReference Include="..\App.Services.Data\App.Services.Data.csproj">
       <Project>{25fa875d-06f5-4889-913d-a83e3949c5fa}</Project>
       <Name>App.Services.Data</Name>
     </ProjectReference>

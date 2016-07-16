@@ -98,8 +98,8 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -232,10 +232,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\App.Services.Web\App.Services.Web.csproj">
-      <Project>{43A79522-D8B5-48F4-B098-2CA858307986}</Project>
-      <Name>App.Services.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\App.Data.Common\App.Data.Common.csproj">
       <Project>{69390A1B-BA5A-4977-BD94-3F808C1029F0}</Project>
       <Name>App.Data.Common</Name>
@@ -255,6 +251,10 @@
     <ProjectReference Include="..\..\Services\App.Services.Logic\App.Services.Logic.csproj">
       <Project>{ca68605f-21a6-4134-968b-c65ba7c8fd5c}</Project>
       <Name>App.Services.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\App.Services.Web\App.Services.Web.csproj">
+      <Project>{43A79522-D8B5-48F4-B098-2CA858307986}</Project>
+      <Name>App.Services.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Server.Common\App.Server.Common.csproj">
       <Project>{4e56a27d-f2f3-4e6c-9e1a-97b0aeea8a11}</Project>

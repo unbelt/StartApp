@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Services.Logic", "Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Client.Web", "Client\App.Client.Web\App.Client.Web.csproj", "{36AA6199-CB9A-41EB-B58E-79EC949F330A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Services.Web", "App.Services.Web\App.Services.Web.csproj", "{43A79522-D8B5-48F4-B098-2CA858307986}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Services.Web", "Services\App.Services.Web\App.Services.Web.csproj", "{43A79522-D8B5-48F4-B098-2CA858307986}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
